@@ -5,17 +5,15 @@ const Overview = () => {
       <div className="flex justify-between items-start">
         <div>
           <h1 className="text-2xl font-bold text-white">System Overview</h1>
-          <p className="text-gray-400 text-sm">Real time overview</p>
+          <p className="text-gray-400 text-sm">Real-time overview</p>
         </div>
         <div className="flex items-center space-x-3">
           <div className="text-right">
             <p className="text-xl font-semibold text-white">0 USDT</p>
             <p className="text-gray-400 text-sm">Reserved money</p>
           </div>
-          <button className="p-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-colors">
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-            </svg>
+          <button className="px-4 py-2 text-sm bg-transparent border border-gray-50 text-white rounded-lg hover:bg-orange-700 transition-colors">
+           Refresh
           </button>
         </div>
       </div>
@@ -65,8 +63,8 @@ const Overview = () => {
               <p className="text-2xl font-bold text-white">0</p>
             </div>
             <div className="bg-gray-800 p-4 rounded-lg border border-gray-700">
-              <h4 className="text-sm text-gray-400 mb-1">Transaction by LLM</h4>
-              <p className="text-2xl font-bold text-white">0</p>
+              <h4 className="text-sm text-gray-400 mb-1">Transferred by LLM</h4>
+              <p className="text-2xl font-bold text-white">1,000.00 USDT</p>
             </div>
           </div>
         </div>
@@ -79,8 +77,8 @@ const Overview = () => {
               { name: 'Bitcoin (WTBC)', network: 'Ethereum blockchain', status: 'Active', type: 'ERC-20' },
               { name: 'Ethereum (WTBC)', network: 'Ethereum blockchain', status: 'Active', type: 'ERC-20' },
               { name: 'Tether (WTBC)', network: 'Ethereum blockchain', status: 'Active', type: 'ERC-20' },
-              { name: 'Binance (WTBC)', network: 'BSC blockchain', status: 'Active', type: 'BEP-20' },
-              { name: 'Cardano (WTBC)', network: 'Cardano blockchain', status: 'Active', type: 'Native' },
+              { name: 'Binance (WTBC)', network: 'BSC blockchain', status: 'Active', type: 'ERC-20' },
+              { name: 'Cardano (WTBC)', network: 'Cardano blockchain', status: 'Active', type: 'ERC-20' },
             ].map((token, index) => (
               <div key={index} className="flex justify-between items-center py-2">
                 <div className="flex items-center space-x-3">
