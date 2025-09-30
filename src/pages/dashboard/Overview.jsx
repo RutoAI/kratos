@@ -49,12 +49,16 @@ const Overview = () => {
       <div className="grid grid-cols-12 gap-6">
         {/* Transaction Graph - 8 columns */}
         <div className="col-span-8 rounded-lg border border-gray-600" style={{ backgroundColor: 'rgba(255, 255, 255, 0.02)' }}>
-          <div className="p-6">
-            <h3 className="text-lg font-semibold text-white mb-4">Transaction Graph</h3>
-            <div className="h-64 bg-gray-800 rounded border border-gray-700 flex items-center justify-center">
-              <span className="text-gray-400">Transaction Chart Placeholder</span>
-            </div>
-          </div>
+       <div className="p-6">
+  <div className="h-64 bg-gray-800 rounded border border-gray-700 flex items-center justify-center">
+    <img
+      src="/images/Transactions.png"
+      alt="Transaction Graph"
+      className="max-h-full max-w-full object-contain"
+    />
+  </div>
+</div>
+
 
           {/* Bottom 2 cards in 4+4 layout */}
           <div className="grid grid-cols-2 gap-4 p-6 pt-0">
@@ -133,70 +137,74 @@ const Overview = () => {
                 {
                   id: 'TXN001',
                   type: 'Send',
-                  asset: 'BTC',
-                  amount: '0.00512',
-                  gateway: 'Blockchain',
-                  status: 'Completed',
+                  asset: 'Bitcoin',
+                  amount: '0.0075',
+                  gateway: 'onchain',
+                  status: 'Pending',
                   time: '18/02/2025 XY:XX UTC 5+'
                 },
                 {
                   id: 'TXN002',
                   type: 'Send',
-                  asset: 'ETH',
-                  amount: '2.45',
-                  gateway: 'Blockchain',
+                  asset: 'Bitcoin',
+                  amount: '0.0075',
+                  gateway: 'onchain',
                   status: 'Pending',
                   time: '18/02/2025 XY:XX UTC 5+'
                 },
                 {
                   id: 'TXN003',
                   type: 'Send',
-                  asset: 'USDT',
-                  amount: '1,250.00',
-                  gateway: 'Internal',
-                  status: 'Completed',
+                  asset: 'Bitcoin',
+                  amount: '0.0075',
+                  gateway: 'onchain',
+                  status: 'pending',
                   time: '18/02/2025 XY:XX UTC 5+'
                 },
                 {
                   id: 'TXN004',
                   type: 'Send',
-                  asset: 'BNB',
-                  amount: '15.78',
-                  gateway: 'Blockchain',
-                  status: 'Failed',
+                  asset: 'Bitcoin',
+                  amount: '0.0075',
+                  gateway: 'onchain',
+                  status: 'pending',
                   time: '18/02/2025 XY:XX UTC 5+'
                 },
                 {
                   id: 'TXN005',
                   type: 'Send',
-                  asset: 'ADA',
-                  amount: '500.00',
-                  gateway: 'Blockchain',
-                  status: 'Completed',
+                  asset: 'Bitcoin',
+                  amount: '0.0075',
+                  gateway: 'onchain',
+                  status: 'pending',
                   time: '18/02/2025 XY:XX UTC 5+'
                 }
               ].map((transaction, index) => (
                 <tr key={index} className="hover:bg-gray-800">
                   <td className="px-6 py-4 text-sm text-white">{transaction.id}</td>
                   <td className="px-6 py-4 text-sm text-white">{transaction.type}</td>
-                 <td className="px-6 py-4 text-sm font-medium text-white">
+               <td className="px-6 py-4 text-sm font-medium text-white">
   <div className="flex items-center space-x-2">
     <img
-      src={`/images/nohat_bg_removed_2896e6b4 1.png`} 
+      src={`/images/nohat_bg_removed_2896e6b4 1.png`}
       alt={transaction.asset}
       className="h-5 w-5"
     />
-    <span>{transaction.asset}</span>
+    <div className="flex flex-col">
+      <span>{transaction.asset}</span>
+      <span className="text-xs text-gray-400">btcERC20</span>
+    </div>
   </div>
 </td>
+
 
                   <td className="px-6 py-4 text-sm text-white">{transaction.amount}</td>
                   <td className="px-6 py-4 text-sm text-white">{transaction.gateway}</td>
                   <td className="px-6 py-4 text-sm">
                     <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
-                      transaction.status === 'Completed' ? 'bg-green-100 text-green-800' :
-                      transaction.status === 'Pending' ? 'bg-yellow-100 text-yellow-800' :
-                      'bg-red-100 text-red-800'
+                      transaction.status === 'Completed' ? ' text-orange-500' :
+                      transaction.status === 'Pending' ? 'text-orange-500' :
+                      ' text-orange-500'
                     }`}>
                       {transaction.status}
                     </span>
