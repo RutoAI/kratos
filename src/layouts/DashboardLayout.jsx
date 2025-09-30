@@ -14,18 +14,21 @@ const DashboardLayout = () => {
   ]
 
   return (
-    <div className="min-h-screen flex" style={{ backgroundColor: '#2A282E' }}>
+    <div className="min-h-screen flex" style={{ backgroundColor: '#0F172A' }}>
       {/* Sidebar */}
-      <div className="w-[350px] border-r border-gray-600" style={{ backgroundColor: 'transparent' }}>
-        <div className="p-6">
+      <div className="w-[350px] border-r border-gray-600" style={{ backgroundColor: '#070E1E' }}>
+        <div className="p-6 align-center text-center">
           <img
             src="/images/ruto-long.png"
             alt="Ruto Logo"
-            className="h-8"
+            className="h-6 text-center align-center mx-auto"
           />
+          <p className='text-white '>
+            Administrative dashboard
+          </p>
         </div>
 
-        <nav className="px-4 space-y-1">
+        <nav className="px-4 space-y-1 ">
           {navigation.map((item) => (
             <Link
               key={item.name}
