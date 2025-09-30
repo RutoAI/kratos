@@ -103,8 +103,15 @@ const Overview = () => {
       {/* Transaction Table */}
       <div className="rounded-lg border border-gray-600" style={{ backgroundColor: 'rgba(255, 255, 255, 0.02)' }}>
         <div className="flex justify-between items-center p-6 border-b border-gray-600">
-          <h3 className="text-lg font-semibold text-white">Transaction Table</h3>
-          <button className="text-orange-500 hover:text-orange-400 text-sm font-medium">
+         <div className="">
+  <h3 className="text-md font-semibold text-white">
+    Recent Transactions
+  </h3>
+  <p className="text-xl font-bold text-gray-400">
+    Last 20 transactions
+  </p>
+</div>
+          <button className="text-white text-md font-medium">
             Show more
           </button>
         </div>
@@ -125,54 +132,64 @@ const Overview = () => {
               {[
                 {
                   id: 'TXN001',
-                  type: 'Deposit',
+                  type: 'Send',
                   asset: 'BTC',
                   amount: '0.00512',
                   gateway: 'Blockchain',
                   status: 'Completed',
-                  time: '2024-01-15 14:32:21'
+                  time: '18/02/2025 XY:XX UTC 5+'
                 },
                 {
                   id: 'TXN002',
-                  type: 'Withdrawal',
+                  type: 'Send',
                   asset: 'ETH',
                   amount: '2.45',
                   gateway: 'Blockchain',
                   status: 'Pending',
-                  time: '2024-01-15 13:28:45'
+                  time: '18/02/2025 XY:XX UTC 5+'
                 },
                 {
                   id: 'TXN003',
-                  type: 'Transfer',
+                  type: 'Send',
                   asset: 'USDT',
                   amount: '1,250.00',
                   gateway: 'Internal',
                   status: 'Completed',
-                  time: '2024-01-15 12:15:33'
+                  time: '18/02/2025 XY:XX UTC 5+'
                 },
                 {
                   id: 'TXN004',
-                  type: 'Deposit',
+                  type: 'Send',
                   asset: 'BNB',
                   amount: '15.78',
                   gateway: 'Blockchain',
                   status: 'Failed',
-                  time: '2024-01-15 11:42:18'
+                  time: '18/02/2025 XY:XX UTC 5+'
                 },
                 {
                   id: 'TXN005',
-                  type: 'Withdrawal',
+                  type: 'Send',
                   asset: 'ADA',
                   amount: '500.00',
                   gateway: 'Blockchain',
                   status: 'Completed',
-                  time: '2024-01-15 10:22:07'
+                  time: '18/02/2025 XY:XX UTC 5+'
                 }
               ].map((transaction, index) => (
                 <tr key={index} className="hover:bg-gray-800">
                   <td className="px-6 py-4 text-sm text-white">{transaction.id}</td>
                   <td className="px-6 py-4 text-sm text-white">{transaction.type}</td>
-                  <td className="px-6 py-4 text-sm font-medium text-white">{transaction.asset}</td>
+                 <td className="px-6 py-4 text-sm font-medium text-white">
+  <div className="flex items-center space-x-2">
+    <img
+      src={`/images/nohat_bg_removed_2896e6b4 1.png`} 
+      alt={transaction.asset}
+      className="h-5 w-5"
+    />
+    <span>{transaction.asset}</span>
+  </div>
+</td>
+
                   <td className="px-6 py-4 text-sm text-white">{transaction.amount}</td>
                   <td className="px-6 py-4 text-sm text-white">{transaction.gateway}</td>
                   <td className="px-6 py-4 text-sm">

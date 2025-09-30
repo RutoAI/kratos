@@ -26,19 +26,19 @@ const DashboardLayout = () => {
           <p className="text-white">Administrative dashboard</p>
         </div>
 
-        <nav className="px-4 space-y-1">
+        <nav className="px-4 space-y-2">
           {navigation.map((item) => (
             <Link
               key={item.name}
               to={item.href}
-              className={`flex items-center px-4 py-3 text-sm font-medium rounded-lg transition-colors ${
+              className={`flex items-center px-4 py-3 text-sm font-medium rounded-lg transition-colors border ${
                 item.current
-                  ? 'text-orange-500 border'
-                  : 'text-orange-500 hover:text-orange-400 hover:bg-gray-700 hover:bg-opacity-30'
+                  ? 'text-orange-500 border-orange-500 bg-gray-800 bg-opacity-30'
+                  : 'text-orange-500 border-gray-600 hover:text-orange-400 hover:bg-gray-700 hover:bg-opacity-30'
               }`}
             >
               <img
-                src="/images/category.svg"  
+                src="/images/category.svg"
                 alt=""
                 className="mr-3 h-5 w-5"
               />
