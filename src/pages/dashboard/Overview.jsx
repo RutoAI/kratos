@@ -76,16 +76,16 @@ const Overview = () => {
           <h3 className="text-lg font-semibold text-white mb-4">Active Tokens</h3>
           <div className="space-y-4">
             {[
-              { name: 'Bitcoin WTC', network: 'Ethereum blockchain', status: 'Active', type: 'ERC-20' },
-              { name: 'Ethereum ETH', network: 'Ethereum blockchain', status: 'Active', type: 'ERC-20' },
-              { name: 'Tether USDT', network: 'Ethereum blockchain', status: 'Active', type: 'ERC-20' },
-              { name: 'Binance BNB', network: 'BSC blockchain', status: 'Active', type: 'BEP-20' },
-              { name: 'Cardano ADA', network: 'Cardano blockchain', status: 'Active', type: 'Native' },
+              { name: 'Bitcoin (WTBC)', network: 'Ethereum blockchain', status: 'Active', type: 'ERC-20' },
+              { name: 'Ethereum (WTBC)', network: 'Ethereum blockchain', status: 'Active', type: 'ERC-20' },
+              { name: 'Tether (WTBC)', network: 'Ethereum blockchain', status: 'Active', type: 'ERC-20' },
+              { name: 'Binance (WTBC)', network: 'BSC blockchain', status: 'Active', type: 'BEP-20' },
+              { name: 'Cardano (WTBC)', network: 'Cardano blockchain', status: 'Active', type: 'Native' },
             ].map((token, index) => (
               <div key={index} className="flex justify-between items-center py-2">
                 <div className="flex items-center space-x-3">
                   <div className="w-8 h-8 bg-orange-100 rounded-full flex items-center justify-center">
-                    <span className="text-orange-600 font-bold text-xs">₿</span>
+                  <img src="/images/nohat_bg_removed_2896e6b4 1.png" alt="" className="text-sm" />
                   </div>
                   <div>
                     <p className="text-sm font-medium text-white">{token.name}</p>
@@ -93,7 +93,7 @@ const Overview = () => {
                   </div>
                 </div>
                 <div className="text-right">
-                  <p className="text-sm font-medium text-green-400">{token.status}</p>
+                  <p className="text-sm font-medium text-white">{token.status}</p>
                   <p className="text-xs text-gray-400">{token.type}</p>
                 </div>
               </div>
