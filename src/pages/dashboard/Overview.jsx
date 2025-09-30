@@ -219,11 +219,48 @@ const Overview = () => {
 
       {/* Final Empty 8+4 Grid Layout */}
       <div className="grid grid-cols-12 gap-6">
-        <div className="col-span-8 rounded-lg border border-gray-600 p-6 h-32" style={{ backgroundColor: 'rgba(255, 255, 255, 0.02)' }}>
-          <div className="h-full rounded border-2 border-dashed border-gray-600 flex items-center justify-center">
-            <span className="text-gray-400">Empty Section</span>
-          </div>
-        </div>
+       <div
+  className="col-span-8 rounded-lg border border-gray-600 p-6"
+  style={{ backgroundColor: 'rgba(255, 255, 255, 0.02)' }}
+>
+  <div className="h-full rounded border border-gray-600 overflow-x-auto">
+    <table className="w-full text-sm text-left">
+      <thead className="bg-gray-800">
+        <tr>
+          <th className="px-6 py-3 text-sm font-medium text-gray-300 ">id</th>
+          <th className="px-6 py-3 text-sm font-medium text-gray-300 ">roles</th>
+          <th className="px-6 py-3 text-sm font-medium text-gray-300 ">username</th>
+           <th className="px-6 py-3 text-sm font-medium text-gray-300 ">last login</th>
+            <th className="px-6 py-3 text-sm font-medium text-gray-300 ">loaction</th>
+             <th className="px-6 py-3 text-sm font-medium text-gray-300 ">device</th>
+
+        </tr>
+      </thead>
+      <tbody className="divide-y divide-gray-700">
+        {/* Empty rows */}
+        <tr>
+          <td className="px-6 py-4 text-gray-500">-</td>
+          <td className="px-6 py-4 text-gray-500">—</td>
+          <td className="px-6 py-4 text-gray-500">—</td>
+          
+        </tr>
+        <tr>
+          <td className="px-6 py-4 text-gray-500">—</td>
+          <td className="px-6 py-4 text-gray-500">—</td>
+          <td className="px-6 py-4 text-gray-500">—</td>
+           
+        </tr>
+         <tr>
+          <td className="px-6 py-4 text-gray-500">—</td>
+          <td className="px-6 py-4 text-gray-500">—</td>
+          <td className="px-6 py-4 text-gray-500">—</td>
+           
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
         <div className="col-span-4 rounded-lg border border-gray-600 p-6 h-32" style={{ backgroundColor: 'rgba(255, 255, 255, 0.02)' }}>
           <div className="h-full rounded border-2 border-dashed border-gray-600 flex items-center justify-center">
             <span className="text-gray-400">Empty Section</span>
