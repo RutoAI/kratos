@@ -5,26 +5,35 @@ const DashboardLayout = () => {
 
   const navigation = [
     { name: 'Overview', href: '/dashboard', current: location.pathname === '/dashboard' },
-    { name: 'Analytics', href: '/dashboard/analytics', current: location.pathname === '/dashboard/analytics' },
+    { name: 'Users', href: '/dashboard/users', current: location.pathname === '/dashboard/users' },
+    { name: 'Finance', href: '/dashboard/finance', current: location.pathname === '/dashboard/finance' },
+    { name: 'Appearance', href: '/dashboard/appearance', current: location.pathname === '/dashboard/appearance' },
+    { name: 'Announcement', href: '/dashboard/announcement', current: location.pathname === '/dashboard/announcement' },
+    { name: 'Security', href: '/dashboard/security', current: location.pathname === '/dashboard/security' },
+    { name: 'System Health', href: '/dashboard/system-health', current: location.pathname === '/dashboard/system-health' },
   ]
 
   return (
-    <div className="min-h-screen bg-gray-50 flex">
+    <div className="min-h-screen flex" style={{ backgroundColor: '#2A282E' }}>
       {/* Sidebar */}
-      <div className="w-64 bg-white shadow-sm border-r border-gray-200">
+      <div className="w-[350px] border-r border-gray-600" style={{ backgroundColor: 'transparent' }}>
         <div className="p-6">
-          <h1 className="text-xl font-semibold text-gray-900">Kratos</h1>
+          <img
+            src="/images/ruto-long.png"
+            alt="Ruto Logo"
+            className="h-8"
+          />
         </div>
 
-        <nav className="px-4 space-y-2">
+        <nav className="px-4 space-y-1">
           {navigation.map((item) => (
             <Link
               key={item.name}
               to={item.href}
-              className={`flex items-center px-4 py-2 text-sm font-medium rounded-md transition-colors ${
+              className={`flex items-center px-4 py-3 text-sm font-medium rounded-lg transition-colors ${
                 item.current
-                  ? 'bg-orange-100 text-orange-700'
-                  : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
+                  ? 'text-orange-500 bg-orange-50 bg-opacity-10 border-l-4 border-orange-500'
+                  : 'text-gray-300 hover:text-orange-400 hover:bg-gray-700 hover:bg-opacity-30'
               }`}
             >
               {item.name}
@@ -34,14 +43,8 @@ const DashboardLayout = () => {
       </div>
 
       {/* Main content */}
-      <div className="flex-1 flex flex-col">
-        <header className="bg-white shadow-sm border-b border-gray-200">
-          <div className="px-6 py-4">
-            <h2 className="text-lg font-semibold text-gray-900">Dashboard</h2>
-          </div>
-        </header>
-
-        <main className="flex-1 p-6">
+      <div className="flex-1">
+        <main className="p-6">
           <Outlet />
         </main>
       </div>

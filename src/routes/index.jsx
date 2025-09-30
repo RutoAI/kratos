@@ -2,7 +2,6 @@ import { Routes, Route, Navigate } from 'react-router-dom'
 import AuthLayout from '../layouts/AuthLayout'
 import DashboardLayout from '../layouts/DashboardLayout'
 import Login from '../pages/auth/Login'
-import Signup from '../pages/auth/Signup'
 import Overview from '../pages/dashboard/Overview'
 
 const AppRoutes = () => {
@@ -15,11 +14,6 @@ const AppRoutes = () => {
         </AuthLayout>
       } />
 
-      <Route path="/signup" element={
-        <AuthLayout>
-          <Signup />
-        </AuthLayout>
-      } />
 
       {/* Dashboard Routes */}
       <Route path="/dashboard" element={<DashboardLayout />}>
