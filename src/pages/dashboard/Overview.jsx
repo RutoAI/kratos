@@ -261,11 +261,51 @@ const Overview = () => {
   </div>
 </div>
 
-        <div className="col-span-4 rounded-lg border border-gray-600 p-6 h-32" style={{ backgroundColor: 'rgba(255, 255, 255, 0.02)' }}>
-          <div className="h-full rounded border-2 border-dashed border-gray-600 flex items-center justify-center">
-            <span className="text-gray-400">Empty Section</span>
-          </div>
-        </div>
+        <div
+  className="col-span-4 rounded-lg border border-gray-600 p-6"
+  style={{ backgroundColor: 'rgba(255, 255, 255, 0.02)' }}
+>
+  <h3 className="text-lg font-semibold text-white mb-4">Operational Metrics</h3>
+
+  <div className="grid grid-cols-2 gap-4">
+    {/* Metric Box 1 */}
+    <div className="rounded-lg border border-gray-600 p-4 bg-gray-800 bg-opacity-50">
+      <h4 className="text-sm font-medium text-gray-300">Backend API RPS</h4>
+      <p className="text-2xl font-bold text-white">0</p>
+    </div>
+
+    {/* Metric Box 2 */}
+    <div className="rounded-lg border border-gray-600 p-4 bg-gray-800 bg-opacity-50">
+      <h4 className="text-sm font-medium text-gray-300">Wallet API RPS</h4>
+      <p className="text-2xl font-bold text-white">0</p>
+    </div>
+
+    {/* Metric Box 3 */}
+    <div className="rounded-lg border border-gray-600 p-4  bg-gray-800 bg-opacity-50">
+      <h4 className="text-sm font-medium text-gray-300">Social hook RPS</h4>
+      <p className="text-2xl font-bold text-white">0</p>
+    </div>
+
+    {/* Metric Box 4 */}
+    <div className="rounded-lg border border-gray-600 p-4  bg-gray-800 bg-opacity-50">
+      <h4 className="text-sm font-medium text-gray-300">LLM Hook RPS</h4>
+      <p className="text-2xl font-bold text-white">0</p>
+    </div>
+
+    {/* Metric Box 5 */}
+    <div className="rounded-lg border border-gray-600 p-4  bg-gray-800 bg-opacity-50">
+      <h4 className="text-sm font-medium text-gray-300">Ticket (Pending)</h4>
+      <p className="text-2xl font-bold text-white">0</p>
+    </div>
+
+    {/* Metric Box 6 */}
+    <div className="rounded-lg border border-gray-600 p-4 bg-gray-800 bg-opacity-50">
+      <h4 className="text-sm font-medium text-gray-300">Latency</h4>
+      <p className="text-2xl font-bold text-white">0</p>
+    </div>
+  </div>
+</div>
+
       </div>
     </div>
   )
