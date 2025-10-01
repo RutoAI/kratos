@@ -14,7 +14,7 @@ const Login = () => {
   }
 
   return (
-    <div className="w-full bg-[#FFE1CC] rounded-xl shadow-md p-8 max-w-sm mx-auto">
+    <div className="w-full bg-[#FFE1CC] rounded-xl shadow-md p-8 py-32 max-w-sm mx-auto">
       <div className="text-center">
         <img
           src="/images/ruto-long.png"
@@ -74,15 +74,12 @@ const Login = () => {
           </div>
         </div>
 
-        {/* Recaptcha */}
-        <div className="bg-gray-200 py-2.5 rounded-sm text-center text-gray-600 text-sm">
-          recaptcha
-        </div>
+       
 
         {/* Submit */}
         <button
           type="submit"
-          className="w-full bg-[#E63912] hover:bg-[#c5300f] text-white py-2.5 rounded-sm font-medium transition-colors text-sm"
+          className="w-full bg-[#E63912] hover:bg-[#c5300f] text-white py-2.5 rounded-sm font-medium transition-colors text-sm mt-8"
         >
           Sign in
         </button>
