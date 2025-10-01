@@ -45,7 +45,7 @@ const DashboardLayout = () => {
   ]
 
   return (
-    <div className="min-h-screen flex" style={{ backgroundColor: '#0F172A' }}>
+    <div className="min-h-screen flex" style={{ backgroundColor: '#070E1E' }}>
       {/* Sidebar */}
       <div className="w-[350px] fixed h-screen border-r border-gray-600 flex flex-col" style={{ backgroundColor: '#070E1E' }}>
         {/* Header */}

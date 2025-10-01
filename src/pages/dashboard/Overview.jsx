@@ -12,9 +12,7 @@ const Overview = () => {
             <p className="text-xl font-semibold text-white">0 USDT</p>
             <p className="text-gray-400 text-sm">Reserved money</p>
           </div>
-          <button className="px-4 py-2 text-sm bg-transparent border border-gray-50 text-white rounded-lg hover:bg-orange-700 transition-colors">
-           Refresh
-          </button>
+         
         </div>
       </div>
 

@@ -6,6 +6,9 @@ import tailwindcss from '@tailwindcss/vite'
 export default defineConfig({
   plugins: [react(), tailwindcss()],
   server: {
-    allowedHosts: ['hq.rutowallet.com']
+    allowedHosts: [
+      'hq.rutowallet.com',
+      "db74dea2bca7.rutowallet.com"
+    ]
   }
 })
