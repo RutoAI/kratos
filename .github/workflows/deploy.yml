@@ -1,0 +1,56 @@
+name: Deploy to Server
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Deploy over SSH
+        run: |
+          ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << 'EOF'
+            # Make sure Node 20 is installed
+            if ! command -v nvm &> /dev/null; then
+              export NVM_DIR="$HOME/.nvm"
+              [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" || {
+                echo "Installing NVM..."
+                curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+                [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+              }
+            fi
+
+            echo "Switching to Node 20..."
+            nvm install 20
+            nvm use 20
+
+            node -v
+            npm -v
+
+            # Navigate to project
+            cd /kratos
+
+            git reset --hard
+
+            # Pull latest code
+            git pull
+
+            # Install dependencies
+            npm install
+
+            # Restart pm2
+            pm2 restart hq-dev --update-env
+          EOF
