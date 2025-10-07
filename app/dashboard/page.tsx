@@ -1,4 +1,56 @@
+import StatCard from '@/components/StatCard'
+import TransactionTable from '@/components/TransactionTable'
+import { Transaction } from '@/types'
+
 const Overview = () => {
+  const transactions: Transaction[] = [
+    {
+      id: '#983232848477',
+      type: 'send',
+      asset: 'Bitcoin',
+      amount: '0.0075',
+      gateway: 'onchain',
+      status: 'Pending',
+      time: '18/02/2025 XY:XX UTC 5+',
+    },
+    {
+      id: '#983232848477',
+      type: 'send',
+      asset: 'Bitcoin',
+      amount: '0.0075',
+      gateway: 'onchain',
+      status: 'Pending',
+      time: '18/02/2025 XY:XX UTC 5+',
+    },
+    {
+      id: '#983232848477',
+      type: 'send',
+      asset: 'Bitcoin',
+      amount: '0.0075',
+      gateway: 'onchain',
+      status: 'pending',
+      time: '18/02/2025 XY:XX UTC 5+',
+    },
+    {
+      id: '#983232848477',
+      type: 'send',
+      asset: 'Bitcoin',
+      amount: '0.0075',
+      gateway: 'onchain',
+      status: 'pending',
+      time: '18/02/2025 XY:XX UTC 5+',
+    },
+    {
+      id: '#983232848477',
+      type: 'send',
+      asset: 'Bitcoin',
+      amount: '0.0075',
+      gateway: 'onchain',
+      status: 'pending',
+      time: '18/02/2025 XY:XX UTC 5+',
+    },
+  ]
+
   return (
     <div className="space-y-6">
       {/* Header Section */}
@@ -17,29 +69,26 @@ const Overview = () => {
 
       {/* 4 Grid Data Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <div className="p-6 rounded-lg border border-white/15 hover:border-gray-500 transition-colors bg-white/5 backdrop-blur-md">
-          <h3 className="text-sm text-gray-400 mb-2">Total Users</h3>
-          <p className="text-3xl font-bold text-white mb-1">0</p>
-          <p className="text-xs text-gray-500">New user today: 0</p>
-        </div>
-
-        <div className="p-6 rounded-lg border border-white/15 hover:border-gray-500 bg-white/5 backdrop-blur-md transition-colors">
-          <h3 className="text-sm text-gray-400 mb-2">Total Transaction</h3>
-          <p className="text-3xl font-bold text-white mb-1">0</p>
-          <p className="text-xs text-gray-500">New transaction today: 0</p>
-        </div>
-
-        <div className="p-6 rounded-lg border bg-white/5 backdrop-blur-md border-white/15 hover:border-gray-500 transition-colors">
-          <h3 className="text-sm text-gray-400 mb-2">Total Received (blockchain)</h3>
-          <p className="text-3xl font-bold text-white mb-1">0</p>
-          <p className="text-xs text-gray-500">Received today: 0</p>
-        </div>
-
-        <div className="p-6 rounded-lg border bg-white/5 backdrop-blur-md border-white/15 hover:border-gray-500 transition-colors">
-          <h3 className="text-sm text-gray-400 mb-2">Total Sent (blockchain)</h3>
-          <p className="text-3xl font-bold text-white mb-1">0</p>
-          <p className="text-xs text-gray-500">Sent today: 0</p>
-        </div>
+        <StatCard
+          title="Total Users"
+          value="0"
+          subtitle="New user today: 0"
+        />
+        <StatCard
+          title="Total Transaction"
+          value="0"
+          subtitle="New transaction today: 0"
+        />
+        <StatCard
+          title="Total Received (blockchain)"
+          value="0"
+          subtitle="Received today: 0"
+        />
+        <StatCard
+          title="Total Sent (blockchain)"
+          value="0"
+          subtitle="Sent today: 0"
+        />
       </div>
 
       {/* 8+4 Grid Layout */}
@@ -126,113 +175,7 @@ const Overview = () => {
       </div>
 
       {/* Transaction Table */}
-      <div className="rounded-lg border border-white/15">
-        <div className="flex justify-between items-center p-4 border-b border-white/15">
-          <div className="">
-            <h3 className="text-md  text-white/70">Recent Transactions</h3>
-            <p className="text-lg  text-white/90 ">Last 20 transactions</p>
-          </div>
-          <button className="text-white text-md font-medium">Show more</button>
-        </div>
-        <div className="overflow-x-auto bg-white/3 backdrop-blur-md px-6 flex items-center w-full justify-center">
-          <table className="w-full border-separate border-spacing-y-4">
-            <thead className=" mt-5">
-              <tr>
-                <th className="px-6 py-3 text-left text-lg  text-white/75">id</th>
-                <th className="px-6 py-3 text-left text-lg  text-white/75">type</th>
-                <th className="px-6 py-3 text-left text-lg  text-white/75">asset</th>
-                <th className="px-6 py-3 text-left text-lg  text-white/75">amount</th>
-                <th className="px-6 py-3 text-left text-lg  text-white/75">gateway</th>
-                <th className="px-6 py-3 text-left text-lg  text-white/75">status</th>
-                <th className="px-6 py-3 text-left text-lg  text-white/75">time</th>
-              </tr>
-            </thead>
-            <tbody className="">
-              {[
-                {
-                  id: '#983232848477',
-                  type: 'send',
-                  asset: 'Bitcoin',
-                  amount: '0.0075',
-                  gateway: 'onchain',
-                  status: 'Pending',
-                  time: '18/02/2025 XY:XX UTC 5+',
-                },
-                {
-                  id: '#983232848477',
-                  type: 'send',
-                  asset: 'Bitcoin',
-                  amount: '0.0075',
-                  gateway: 'onchain',
-                  status: 'Pending',
-                  time: '18/02/2025 XY:XX UTC 5+',
-                },
-                {
-                  id: '#983232848477',
-                  type: 'send',
-                  asset: 'Bitcoin',
-                  amount: '0.0075',
-                  gateway: 'onchain',
-                  status: 'pending',
-                  time: '18/02/2025 XY:XX UTC 5+',
-                },
-                {
-                  id: '#983232848477',
-                  type: 'send',
-                  asset: 'Bitcoin',
-                  amount: '0.0075',
-                  gateway: 'onchain',
-                  status: 'pending',
-                  time: '18/02/2025 XY:XX UTC 5+',
-                },
-                {
-                  id: '#983232848477',
-                  type: 'send',
-                  asset: 'Bitcoin',
-                  amount: '0.0075',
-                  gateway: 'onchain',
-                  status: 'pending',
-                  time: '18/02/2025 XY:XX UTC 5+',
-                },
-              ].map((transaction, index) => (
-                <tr key={index} className="bg-white/15 mb-2  ">
-                  <td className="px-6 py-2 text-sm text-white">{transaction.id}</td>
-                  <td className="px-6 py-2 text-sm text-white">{transaction.type}</td>
-                  <td className="px-6 py-2 text-sm font-medium text-white">
-                    <div className="flex items-center space-x-2">
-                      <img
-                        src={`/images/nohat_bg_removed_2896e6b4 1.png`}
-                        alt={transaction.asset}
-                        className="h-5 w-5"
-                      />
-                      <div className="flex flex-col">
-                        <span>{transaction.asset}</span>
-                        <span className="text-xs text-gray-400">btcERC20</span>
-                      </div>
-                    </div>
-                  </td>
-                  <td className="px-6 py-2 text-sm text-white">{transaction.amount}</td>
-                  <td className="px-6 py-2 text-sm text-white">{transaction.gateway}</td>
-                  <td className="px-6 py-2 text-sm">
-                    <span
-                      className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
-                        transaction.status === 'Completed'
-                          ? ' text-orange-400'
-                          : transaction.status === 'Pending'
-                            ? 'text-orange-400'
-                            : ' text-orange-400'
-                      }`}
-                    >
-                      {transaction.status}
-                    </span>
-                  </td>
-                  <td className="px-6 py-2 text-sm text-gray-400">{transaction.time}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
+      <TransactionTable transactions={transactions} />
 
       {/* Final Empty 8+4 Grid Layout */}
       <div className="grid grid-cols-12 gap-6">

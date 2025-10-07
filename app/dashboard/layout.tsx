@@ -51,11 +51,10 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   ]
 
   return (
-    <div className="min-h-screen flex" style={{ backgroundColor: '#0E0D19' }}>
+    <div className="min-h-screen flex bg-gradient-to-tr from-[#171A21] to-[#0E0D19]">
       {/* Sidebar */}
       <div
-        className="w-[320px] border-r border-white/5  flex flex-col h-screen sticky top-0 overflow-hidden"
-      
+        className="w-[320px] flex flex-col h-screen sticky top-0 overflow-hidden bg-gradient-to-t from-[#171A21] to-[#0E0D19]"
       >
         {/* Header */}
         <div className="p-6 align-center text-start flex-shrink-0">
@@ -75,7 +74,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
                 <div className="border border-white/15 rounded-lg overflow-hidden">
                   <button
                     onClick={() => toggleMenu(item.name.toLowerCase())}
-                    className="w-full flex items-center justify-between px-4 py-3 text-sm font-medium transition-colors hover:bg-gray-800 hover:bg-opacity-30 text-white"
+                    className="w-full flex items-center justify-between px-4 py-3 text-sm font-medium transition-colors hover:bg-white/12  cursor-pointer hover:bg-opacity-30 text-white"
                   >
                     <div className="flex items-center">
                       <item.icon className="w-5 h-5 mr-3" />
@@ -96,7 +95,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
                           className={`block px-4 py-2 mx-2 text-sm rounded-lg transition-colors ${
                             pathname === subItem.href
                               ? 'text-white bg-gray-800 bg-opacity-50'
-                              : 'text-gray-300 hover:text-white hover:bg-gray-800 hover:bg-opacity-30'
+                              : 'text-gray-300 hover:text-white hover:bg-white/15 backdrop-blur-sm hover:bg-opacity-30'
                           }`}
                         >
                           {subItem.name}
