@@ -38,7 +38,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
       submenu: [
         { name: 'Overview', href: '/dashboard/user-overview' },
         { name: 'Manage General Users', href: '/dashboard/1' },
-        { name: 'Manage Administrative User', href: '/dashboard/2' },
+        { name: 'Manage Administrative User', href: '/dashboard/admin-users' },
         { name: 'Manage Roles', href: '/dashboard/3' },
         { name: 'Inspect User Activity', href: '/dashboard/44' },
       ]
