@@ -1,13 +1,8 @@
-import { XCircleIcon } from '@heroicons/react/24/outline'
-import React from 'react'
+'use client'
 
-const page = () => {
+export default function TotalCustomerModal() {
   return (
     <div>
-      <div className="w-full flex justify-end items-end my-8">
-        <XCircleIcon className="text-white text-2xl h-10 " />
-      </div>
-
       {/* graph  */}
       <div className="bg-white/5 w-full rounded-xl p-4 overflow-hidden">
         {/* graph header  */}
@@ -21,7 +16,9 @@ const page = () => {
           <div className="flex bg-white/15 rounded-xl gap-2 py-2">
             <span className="p-2 px-5 rounded-xl text-sm">Daily</span>
             <span className="p-2 px-5 rounded-xl text-sm">Weekly</span>
-            <span className="p-2 px-5 rounded-xl text-white text-sm bg-orange-500 ">Monthly</span>
+            <span className="p-2 px-5 rounded-xl text-white text-sm bg-orange-500 ">
+              Monthly
+            </span>
             <span className="p-2 px-5 rounded-xl text-sm">Yearly</span>
           </div>
         </div>
@@ -167,5 +164,3 @@ const page = () => {
     </div>
   )
 }
-
-export default page

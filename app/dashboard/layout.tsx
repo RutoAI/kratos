@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import {
@@ -36,11 +36,11 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
       hasSubmenu: true,
       isOpen: openMenus.users,
       submenu: [
-        { name: 'Overview', href: '/dashboard/users' },
-        { name: 'Manage General Users', href: '/dashboard/users/general' },
-        { name: 'Manage Administrative User', href: '/dashboard/users/admin' },
-        { name: 'Manage Roles', href: '/dashboard/users/roles' },
-        { name: 'Inspect User Activity', href: '/dashboard/users/activity' },
+        { name: 'Overview', href: '/dashboard/user-overview' },
+        { name: 'Manage General Users', href: '/dashboard/1' },
+        { name: 'Manage Administrative User', href: '/dashboard/2' },
+        { name: 'Manage Roles', href: '/dashboard/3' },
+        { name: 'Inspect User Activity', href: '/dashboard/44' },
       ]
     },
     { name: 'Finance', icon: CurrencyDollarIcon, hasSubmenu: true, isOpen: openMenus.finance, submenu: [] },
@@ -49,6 +49,20 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
     { name: 'Security', icon: ShieldCheckIcon, hasSubmenu: true, isOpen: openMenus.security, submenu: [] },
     { name: 'Ticket', icon: TicketIcon, hasSubmenu: true, isOpen: openMenus.ticket, submenu: [] },
   ]
+
+  // Auto-open menu if a submenu item is active
+  useEffect(() => {
+    navigation.forEach((item) => {
+      if (item.hasSubmenu && item.submenu) {
+        const hasActiveSubmenu = item.submenu.some(
+          (subItem) => subItem.href === pathname
+        )
+        if (hasActiveSubmenu) {
+          setOpenMenus((prev) => ({ ...prev, [item.name.toLowerCase()]: true }))
+        }
+      }
+    })
+  }, [pathname])
 
   return (
     <div className="min-h-screen flex bg-gradient-to-tr from-[#171A21] to-[#0E0D19]">
@@ -94,7 +108,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
                           href={subItem.href}
                           className={`block px-4 py-2 mx-2 text-sm rounded-lg transition-colors ${
                             pathname === subItem.href
-                              ? 'text-white bg-gray-800 bg-opacity-50'
+                              ? 'text-orange-500'
                               : 'text-gray-300 hover:text-white hover:bg-white/15 backdrop-blur-sm hover:bg-opacity-30'
                           }`}
                         >

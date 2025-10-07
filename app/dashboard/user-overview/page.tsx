@@ -1,8 +1,16 @@
+'use client'
+
+import { useState } from 'react'
 import StatCard from '@/components/StatCard'
 import TransactionTable from '@/components/TransactionTable'
 import { Transaction } from '@/types'
+import Modal from '@/components/modals/Modal'
+import TotalCustomerModal from '@/components/modals/TotalCustomerModal'
+import UserRegistrationModal from '@/components/modals/UserRegistrationModal'
+import DailyUsersModal from '@/components/modals/DailyUsersModal'
 
 const Page = () => {
+  const [openModal, setOpenModal] = useState<string | null>(null)
   const transactions: Transaction[] = [
     {
       id: 'TXN001',
@@ -64,14 +72,19 @@ const Page = () => {
 
       {/* 4 Grid Data Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <StatCard
-          title="Total Customers"
-          value="12,040"
-          subtitle="+ 6.5% Since last week"
-          icon="/svg/block.svg"
-        />
+        <div onClick={() => setOpenModal('totalCustomer')} className="cursor-pointer">
+          <StatCard
+            title="Total Customers"
+            value="12,040"
+            subtitle="+ 6.5% Since last week"
+            icon="/svg/block.svg"
+          />
+        </div>
 
-        <div className="p-3 rounded-lg border border-white/15 hover:border-gray-500 transition-colors bg-white/5 backdrop-blur-md">
+        <div
+          onClick={() => setOpenModal('userRegistration')}
+          className="p-3 rounded-lg border border-white/15 hover:border-gray-500 transition-colors bg-white/5 backdrop-blur-md cursor-pointer"
+        >
           <div className="w-full flex justify-between">
             <h3 className="text-sm text-gray-400 mb-2">User Registration Trend</h3>
             <img src="/svg/block.svg" alt="" />
@@ -79,12 +92,14 @@ const Page = () => {
           <img src="/svg/chart.svg" alt="" />
         </div>
 
-        <StatCard
-          title="Daily Active Users"
-          value="89,432"
-          subtitle="+ 8.2% from"
-          icon="/svg/block.svg"
-        />
+        <div onClick={() => setOpenModal('dailyUsers')} className="cursor-pointer">
+          <StatCard
+            title="Daily Active Users"
+            value="89,432"
+            subtitle="+ 8.2% from"
+            icon="/svg/block.svg"
+          />
+        </div>
 
         <StatCard
           title="Total Adminsitrative Users"
@@ -247,9 +262,25 @@ const Page = () => {
           </div>
         </div>
       </div>
-      </div>
-    )
-  }
-  
-  export default Page
+
+      {/* Modals */}
+      <Modal isOpen={openModal === 'totalCustomer'} onClose={() => setOpenModal(null)}>
+        <TotalCustomerModal />
+      </Modal>
+
+      <Modal
+        isOpen={openModal === 'userRegistration'}
+        onClose={() => setOpenModal(null)}
+      >
+        <UserRegistrationModal />
+      </Modal>
+
+      <Modal isOpen={openModal === 'dailyUsers'} onClose={() => setOpenModal(null)}>
+        <DailyUsersModal />
+      </Modal>
+    </div>
+  )
+}
+
+export default Page
   
