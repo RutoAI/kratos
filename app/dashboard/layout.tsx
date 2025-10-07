@@ -3,11 +3,21 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { MdDashboard, MdPeople, MdAccountBalanceWallet, MdPalette, MdAnnouncement, MdSecurity, MdConfirmationNumber, MdChevronRight, MdExpandMore } from 'react-icons/md'
+import {
+  Squares2X2Icon,
+  UsersIcon,
+  CurrencyDollarIcon,
+  PaintBrushIcon,
+  MegaphoneIcon,
+  ShieldCheckIcon,
+  TicketIcon,
+  ChevronRightIcon,
+  ChevronDownIcon
+} from '@heroicons/react/24/outline'
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname()
-  const [openMenus, setOpenMenus] = useState<Record<string, boolean>>({ users: true })
+  const [openMenus, setOpenMenus] = useState<Record<string, boolean>>({})
 
   const toggleMenu = (menuName: string) => {
     setOpenMenus(prev => ({ ...prev, [menuName]: !prev[menuName] }))
@@ -17,12 +27,12 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
     {
       name: 'Overview',
       href: '/dashboard',
-      icon: MdDashboard,
+      icon: Squares2X2Icon,
       current: pathname === '/dashboard'
     },
     {
       name: 'Users',
-      icon: MdPeople,
+      icon: UsersIcon,
       hasSubmenu: true,
       isOpen: openMenus.users,
       submenu: [
@@ -33,11 +43,11 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
         { name: 'Inspect User Activity', href: '/dashboard/users/activity' },
       ]
     },
-    { name: 'Finance', icon: MdAccountBalanceWallet, hasSubmenu: true, isOpen: openMenus.finance, submenu: [] },
-    { name: 'Appearance', icon: MdPalette, hasSubmenu: true, isOpen: openMenus.appearance, submenu: [] },
-    { name: 'Announcement', icon: MdAnnouncement, hasSubmenu: true, isOpen: openMenus.announcement, submenu: [] },
-    { name: 'Security', icon: MdSecurity, hasSubmenu: true, isOpen: openMenus.security, submenu: [] },
-    { name: 'Ticket', icon: MdConfirmationNumber, hasSubmenu: true, isOpen: openMenus.ticket, submenu: [] },
+    { name: 'Finance', icon: CurrencyDollarIcon, hasSubmenu: true, isOpen: openMenus.finance, submenu: [] },
+    { name: 'Appearance', icon: PaintBrushIcon, hasSubmenu: true, isOpen: openMenus.appearance, submenu: [] },
+    { name: 'Announcement', icon: MegaphoneIcon, hasSubmenu: true, isOpen: openMenus.announcement, submenu: [] },
+    { name: 'Security', icon: ShieldCheckIcon, hasSubmenu: true, isOpen: openMenus.security, submenu: [] },
+    { name: 'Ticket', icon: TicketIcon, hasSubmenu: true, isOpen: openMenus.ticket, submenu: [] },
   ]
 
   return (
@@ -65,10 +75,10 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
                     className="w-full flex items-center justify-between px-4 py-3 text-sm font-medium transition-colors hover:bg-gray-800 hover:bg-opacity-30 text-white"
                   >
                     <div className="flex items-center">
-                      <item.icon className="mr-3 text-lg" />
+                      <item.icon className="w-5 h-5 mr-3" />
                       {item.name}
                     </div>
-                    {item.isOpen ? <MdExpandMore className="text-white text-lg" /> : <MdChevronRight className="text-white text-lg" />}
+                    {item.isOpen ? <ChevronDownIcon className="w-5 h-5 text-white" /> : <ChevronRightIcon className="w-5 h-5 text-white" />}
                   </button>
                   {item.isOpen && item.submenu && (
                     <div className="space-y-1 pb-2">
@@ -97,7 +107,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
                       : 'text-white border-gray-700 hover:bg-gray-800 hover:bg-opacity-30'
                   }`}
                 >
-                  <item.icon className="mr-3 text-lg" />
+                  <item.icon className="w-5 h-5 mr-3" />
                   {item.name}
                 </Link>
               )}
