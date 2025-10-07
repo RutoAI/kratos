@@ -68,7 +68,11 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
     <div className="min-h-screen flex bg-gradient-to-tr from-[#171A21] to-[#0E0D19]">
       {/* Sidebar */}
       <div
-        className="w-[320px] flex flex-col h-screen sticky top-0 overflow-hidden bg-gradient-to-t from-[#171A21] to-[#0E0D19]"
+        className="w-[320px] flex flex-col h-screen sticky top-0 overflow-hidden"
+        style={{
+          background:
+            'linear-gradient(180deg, #0D0E16 0%, #151621 29.29%, #151621 66.21%, #0D0E16 100%)',
+        }}
       >
         {/* Header */}
         <div className="p-6 align-center text-start flex-shrink-0">
