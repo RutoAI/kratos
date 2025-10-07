@@ -51,9 +51,12 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   ]
 
   return (
-    <div className="min-h-screen flex" style={{ backgroundColor: '#0F172A' }}>
+    <div className="min-h-screen flex" style={{ backgroundColor: '#0E0D19' }}>
       {/* Sidebar */}
-      <div className="w-[350px] border-r border-gray-600 flex flex-col h-screen sticky top-0 overflow-hidden" style={{ backgroundColor: '#0F172A' }}>
+      <div
+        className="w-[320px] border-r border-white/5  flex flex-col h-screen sticky top-0 overflow-hidden"
+      
+      >
         {/* Header */}
         <div className="p-6 align-center text-start flex-shrink-0">
           <img
@@ -69,7 +72,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
           {navigation.map((item) => (
             <div key={item.name}>
               {item.hasSubmenu ? (
-                <div className="border border-gray-700 rounded-lg overflow-hidden">
+                <div className="border border-white/15 rounded-lg overflow-hidden">
                   <button
                     onClick={() => toggleMenu(item.name.toLowerCase())}
                     className="w-full flex items-center justify-between px-4 py-3 text-sm font-medium transition-colors hover:bg-gray-800 hover:bg-opacity-30 text-white"
@@ -78,9 +81,13 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
                       <item.icon className="w-5 h-5 mr-3" />
                       {item.name}
                     </div>
-                    <ChevronDownIcon className={`w-5 h-5 text-white transition-transform duration-300 ${item.isOpen ? 'rotate-180' : 'rotate-0'}`} />
+                    <ChevronDownIcon
+                      className={`w-5 h-5 text-white transition-transform duration-300 ${item.isOpen ? 'rotate-180' : 'rotate-0'}`}
+                    />
                   </button>
-                  <div className={`transition-all duration-300 ease-in-out ${item.isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
+                  <div
+                    className={`transition-all duration-300 ease-in-out ${item.isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}
+                  >
                     <div className="space-y-1 pb-2">
                       {item.submenu?.map((subItem) => (
                         <Link
@@ -104,7 +111,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
                   className={`flex items-center px-4 py-3 text-sm font-medium rounded-lg transition-colors border ${
                     item.current
                       ? 'text-orange-500 border-orange-500'
-                      : 'text-white border-gray-700 hover:bg-gray-800 hover:bg-opacity-30'
+                      : 'text-white border-white/15 hover:bg-gray-800 hover:bg-opacity-30'
                   }`}
                 >
                   <item.icon className="w-5 h-5 mr-3" />
@@ -117,9 +124,12 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
 
         {/* User Profile Section */}
         <div className="px-4 pb-4 flex-shrink-0">
-          <div className="border border-gray-700 rounded-lg px-4 py-3">
+          <div className="border border-white/15 rounded-lg px-4 py-3">
             <div className="text-center">
-              <div className="w-16 h-16 rounded-full mx-auto mb-3" style={{ backgroundColor: '#FFB3D9' }}></div>
+              <div
+                className="w-16 h-16 rounded-full mx-auto mb-3"
+                style={{ backgroundColor: '#FFB3D9' }}
+              ></div>
               <h3 className="text-white font-semibold text-sm">Super Admin</h3>
               <p className="text-gray-400 text-xs mb-3">hi***@gmail.com</p>
               <div className="text-xs text-gray-400 mb-3">
@@ -142,9 +152,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
 
       {/* Main content */}
       <div className="flex-1">
-        <main className="p-6">
-          {children}
-        </main>
+        <main className="p-6">{children}</main>
       </div>
     </div>
   )
