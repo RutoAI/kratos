@@ -2,6 +2,35 @@ import { XCircleIcon } from '@heroicons/react/24/outline'
 import React from 'react'
 
 const page = () => {
+  // Channel data
+  const channelData = [
+    { channel: 'Referral Program', users: '12,450', percentage: '45.2%' },
+    { channel: 'Organic Search', users: '8,320', percentage: '30.5%' },
+    { channel: 'Paid Socials (Ads)', users: '4,180', percentage: '15.3%' },
+    { channel: 'Direct Traffic', users: '2,450', percentage: '9.0%' },
+    { channel: 'Other Campaigns', users: '1,200', percentage: '4.4%' },
+  ]
+
+  // User data
+  const userData = [
+    {
+      name: 'John Doe',
+      avatar: 'https://i.pravatar.cc/150?img=1',
+      email: 'john.doe@example.com',
+      registrationDate: 'Jan 15, 2025',
+      source: 'Referral',
+      status: 'Active',
+    },
+    {
+      name: 'Jane Smith',
+      avatar: 'https://i.pravatar.cc/150?img=5',
+      email: 'jane.smith@example.com',
+      registrationDate: 'Jan 14, 2025',
+      source: 'Referral',
+      status: 'Active',
+    },
+  ]
+
   return (
     <div>
       <div className="w-full flex justify-end items-end my-8">
@@ -59,36 +88,70 @@ const page = () => {
                 </tr>
               </thead>
               <tbody className="divide-y divide-white/10">
-                <tr className="hover:bg-white/5">
-                  <td className="px-6 py-4 text-sm text-white">Referral Program</td>
-                  <td className="px-6 py-4 text-sm text-orange-500">12,450</td>
-                  <td className="px-6 py-4 text-sm text-white">45.2%</td>
-                </tr>
-                <tr className="hover:bg-white/5">
-                  <td className="px-6 py-4 text-sm text-white">Organic Search</td>
-                  <td className="px-6 py-4 text-sm text-orange-500">8,320</td>
-                  <td className="px-6 py-4 text-sm text-white">30.5%</td>
-                </tr>
-                <tr className="hover:bg-white/5">
-                  <td className="px-6 py-4 text-sm text-white">Paid Socials (Ads)</td>
-                  <td className="px-6 py-4 text-sm text-orange-500">4,180</td>
-                  <td className="px-6 py-4 text-sm text-white">15.3%</td>
-                </tr>
-                <tr className="hover:bg-white/5">
-                  <td className="px-6 py-4 text-sm text-white">Direct Traffic</td>
-                  <td className="px-6 py-4 text-sm text-orange-500">2,450</td>
-                  <td className="px-6 py-4 text-sm text-white">9.0%</td>
-                </tr>
-                <tr className="hover:bg-white/5">
-                  <td className="px-6 py-4 text-sm text-white">Other Campaigns</td>
-                  <td className="px-6 py-4 text-sm text-orange-500">1,200</td>
-                  <td className="px-6 py-4 text-sm text-white">4.4%</td>
-                </tr>
+                {channelData.map((item, index) => (
+                  <tr key={index} className="hover:bg-white/5">
+                    <td className="px-6 py-4 text-sm text-white">{item.channel}</td>
+                    <td className="px-6 py-4 text-sm text-orange-500">{item.users}</td>
+                    <td className="px-6 py-4 text-sm text-white">{item.percentage}</td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>
-        </div>
+              </div>
+              
+           
       </div>
+          
+          <div className="mt-12 rounded-xl w-full p-4 bg-white/5 text-white/80">
+              {/* heading  */}
+              <h1 className="font-bold mb-6">Recent Registrations</h1>
+
+              {/* User table  */}
+              <div className="overflow-x-auto">
+                <table className="w-full">
+                  <thead className="border-b border-white/10">
+                    <tr>
+                      <th className="px-6 py-3 text-left text-sm font-medium text-white/80">USER</th>
+                      <th className="px-6 py-3 text-left text-sm font-medium text-white/80">EMAIL</th>
+                      <th className="px-6 py-3 text-left text-sm font-medium text-white/80">REGISTRATION DATE</th>
+                      <th className="px-6 py-3 text-left text-sm font-medium text-white/80">SOURCE</th>
+                      <th className="px-6 py-3 text-left text-sm font-medium text-white/80">STATUS</th>
+                      <th className="px-6 py-3 text-left text-sm font-medium text-white/80"></th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-white/10">
+                    {userData.map((user, index) => (
+                      <tr key={index} className="hover:bg-white/5">
+                        <td className="px-6 py-4 text-sm text-white">
+                          <div className="flex items-center gap-3">
+                            <img src={user.avatar} alt={user.name} className="w-10 h-10 rounded-full" />
+                            <span>{user.name}</span>
+                          </div>
+                        </td>
+                        <td className="px-6 py-4 text-sm text-white">{user.email}</td>
+                        <td className="px-6 py-4 text-sm text-white">{user.registrationDate}</td>
+                        <td className="px-6 py-4 text-sm text-orange-500">{user.source}</td>
+                        <td className="px-6 py-4 text-sm">
+                          <span className={`px-3 py-1 rounded-full text-xs ${
+                            user.status === 'Active'
+                              ? 'bg-green-500/20 text-green-500'
+                              : 'bg-yellow-500/20 text-yellow-500'
+                          }`}>
+                            {user.status}
+                          </span>
+                        </td>
+                        <td className="px-6 py-4 text-sm">
+                          <button className="text-orange-500 hover:text-orange-400 transition-colors">
+                            View Details
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+          </div>
     </div>
   )
 }

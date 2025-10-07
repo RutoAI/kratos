@@ -69,7 +69,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
           {navigation.map((item) => (
             <div key={item.name}>
               {item.hasSubmenu ? (
-                <div className="border border-gray-700 rounded-lg overflow-hidden transition-all">
+                <div className="border border-gray-700 rounded-lg overflow-hidden">
                   <button
                     onClick={() => toggleMenu(item.name.toLowerCase())}
                     className="w-full flex items-center justify-between px-4 py-3 text-sm font-medium transition-colors hover:bg-gray-800 hover:bg-opacity-30 text-white"
@@ -78,11 +78,11 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
                       <item.icon className="w-5 h-5 mr-3" />
                       {item.name}
                     </div>
-                    {item.isOpen ? <ChevronDownIcon className="w-5 h-5 text-white" /> : <ChevronRightIcon className="w-5 h-5 text-white" />}
+                    <ChevronDownIcon className={`w-5 h-5 text-white transition-transform duration-300 ${item.isOpen ? 'rotate-180' : 'rotate-0'}`} />
                   </button>
-                  {item.isOpen && item.submenu && (
+                  <div className={`transition-all duration-300 ease-in-out ${item.isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
                     <div className="space-y-1 pb-2">
-                      {item.submenu.map((subItem) => (
+                      {item.submenu?.map((subItem) => (
                         <Link
                           key={subItem.name}
                           href={subItem.href}
@@ -96,7 +96,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
                         </Link>
                       ))}
                     </div>
-                  )}
+                  </div>
                 </div>
               ) : (
                 <Link
