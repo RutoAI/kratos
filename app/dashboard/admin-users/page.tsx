@@ -47,7 +47,7 @@ const Page = () => {
 
       {/* Distribution Section */}
       <div className="grid grid-cols-12 justify-center items-start gap-8">
-        <div className="bg-transparent text-white border p-4 border-white/15 col-span-7 rounded-xl backdrop-blur-md bg-black/5">
+        <div className=" text-white border p-4 border-white/15 col-span-7 rounded-xl backdrop-blur-md bg-black/5">
           <h1 className="text-lg ">Role and User Distribution</h1>
           <p className="text-sm">Visual hierarchy of administrative roles and user assignments</p>
 
@@ -61,7 +61,7 @@ const Page = () => {
         </div>
 
         {/* Live Activity Log */}
-        <div className="bg-transparent p-4 border border-white/15 col-span-5 rounded-xl bg-black/5 backdrop-blur-md text-white h-full">
+        <div className=" p-4 border border-white/15 col-span-5 rounded-xl bg-black/5 backdrop-blur-md text-white h-full">
           <h1 className="m-4 text-lg font-medium">Live Activity Log</h1>
           <ul className="list-disc ml-8 list-inside space-y-2 text-sm text-gray-300">
             <li>Alex C. updated 'Fraud Analyst' role. 2m ago from 128.1.1.5</li>

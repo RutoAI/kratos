@@ -181,7 +181,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
                   <span className="text-white">127.0.0.1</span>
                 </div>
               </div>
-              <button className=" inline-flex px-6 rounded-6xl gap-2 items-center justify-center px-4 py-2 text-orange-500 border border-white/15 rounded-lg cursor-pointer transition-colors text-sm font-medium">
+              <button className=" inline-flex px-6 rounded-6xl gap-2 items-center justify-center  py-2 text-orange-500 border border-white/15 rounded-lg cursor-pointer transition-colors text-sm font-medium">
                 Logout 
                 <span><img src="/svg/logout.svg" alt="" /></span>
               </button>
