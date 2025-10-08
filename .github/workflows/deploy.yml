@@ -50,7 +50,4 @@ jobs:
 
             # Install dependencies
             npm install
-
-            # Restart pm2
-            pm2 restart hq-dev --update-env
           EOF
