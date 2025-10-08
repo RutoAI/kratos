@@ -69,32 +69,16 @@ const Overview = () => {
 
       {/* 4 Grid Data Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <StatCard
-          title="Total Users"
-          value="0"
-          subtitle="New user today: 0"
-        />
-        <StatCard
-          title="Total Transaction"
-          value="0"
-          subtitle="New transaction today: 0"
-        />
-        <StatCard
-          title="Total Received (blockchain)"
-          value="0"
-          subtitle="Received today: 0"
-        />
-        <StatCard
-          title="Total Sent (blockchain)"
-          value="0"
-          subtitle="Sent today: 0"
-        />
+        <StatCard title="Total Users" value="0" subtitle="New user today: 0" />
+        <StatCard title="Total Transaction" value="0" subtitle="New transaction today: 0" />
+        <StatCard title="Total Received (blockchain)" value="0" subtitle="Received today: 0" />
+        <StatCard title="Total Sent (blockchain)" value="0" subtitle="Sent today: 0" />
       </div>
 
       {/* 8+4 Grid Layout */}
       <div className="grid grid-cols-12 gap-6 ">
         {/* Transaction Graph - 8 columns */}
-        <div className="col-span-8 rounded-lg border border-white/15 bg-white/5 backdrop-blur-md">
+        <div className="col-span-8 rounded-lg border border-white/15 bg-black/5 backdrop-blur-md">
           <div className="p-6">
             <div className="h-64  rounded border border-white/15 flex items-center justify-center">
               <img
@@ -119,7 +103,7 @@ const Overview = () => {
         </div>
 
         {/* Active Tokens - 4 columns */}
-        <div className="col-span-4 rounded-lg border border-white/15 p-6 bg-white/5 backdrop-blur-md">
+        <div className="col-span-4 rounded-lg border border-white/15 p-6 bg-black/5 backdrop-blur-md">
           <h3 className="text-lg font-semibold text-white mb-4">Active Tokens</h3>
           <div className="space-y-4">
             {[
@@ -180,7 +164,7 @@ const Overview = () => {
       {/* Final Empty 8+4 Grid Layout */}
       <div className="grid grid-cols-12 gap-6">
         <div className="h-full col-span-8 rounded-xl border border-white/15 overflow-x-auto">
-          <div className="w-full p-4 text-white/75 bg-white/3 backdrop-blur-md">
+          <div className="w-full p-4 text-white/75 bg-black/3 backdrop-blur-md">
             <p>Security -- Active Support Login</p>
           </div>
           <table className="w-full text-sm text-left">
@@ -198,42 +182,42 @@ const Overview = () => {
           </table>
         </div>
 
-        <div className="col-span-4 rounded-lg border bg-white/3 backdrop-blur-md border-white/15 p-6">
+        <div className="col-span-4 rounded-lg border bg-black/3 backdrop-blur-md border-white/15 p-6">
           <h3 className="text-lg font-semibold text-white mb-4">Operational Metrics</h3>
 
           <div className="grid grid-cols-2 gap-4">
             {/* Metric Box 1 */}
-            <div className="rounded-lg border border-white/15 p-4 bg-white/5 backdrop-blur-md bg-opacity-50">
+            <div className="rounded-lg border border-white/15 p-4 bg-black/5 backdrop-blur-md bg-opacity-50">
               <h4 className="text-sm font-medium text-gray-300">Backend API RPS</h4>
               <p className="text-2xl font-bold text-white">0</p>
             </div>
 
             {/* Metric Box 2 */}
-            <div className="rounded-lg border border-white/15 p-4 bg-white/5 backdrop-blur-md  bg-opacity-50">
+            <div className="rounded-lg border border-white/15 p-4 bg-black/5 backdrop-blur-md  bg-opacity-50">
               <h4 className="text-sm font-medium text-gray-300">Wallet API RPS</h4>
               <p className="text-2xl font-bold text-white">0</p>
             </div>
 
             {/* Metric Box 3 */}
-            <div className="rounded-lg border border-white/15 p-4  bg-white/5 backdrop-blur-md  bg-opacity-50">
+            <div className="rounded-lg border border-white/15 p-4  bg-black/5 backdrop-blur-md  bg-opacity-50">
               <h4 className="text-sm font-medium text-gray-300">Social hook RPS</h4>
               <p className="text-2xl font-bold text-white">0</p>
             </div>
 
             {/* Metric Box 4 */}
-            <div className="rounded-lg border border-white/15 p-4  bg-white/5 backdrop-blur-md  bg-opacity-50">
+            <div className="rounded-lg border border-white/15 p-4  bg-black/5 backdrop-blur-md  bg-opacity-50">
               <h4 className="text-sm font-medium text-gray-300">LLM Hook RPS</h4>
               <p className="text-2xl font-bold text-white">0</p>
             </div>
 
             {/* Metric Box 5 */}
-            <div className="rounded-lg border border-white/15 p-4  bg-white/5 backdrop-blur-md  bg-opacity-50">
+            <div className="rounded-lg border border-white/15 p-4  bg-black/5 backdrop-blur-md  bg-opacity-50">
               <h4 className="text-sm font-medium text-gray-300">Ticket (Pending)</h4>
               <p className="text-2xl font-bold text-white">0</p>
             </div>
 
             {/* Metric Box 6 */}
-            <div className="rounded-lg border border-white/15 p-4 bg-white/5 backdrop-blur-md  bg-opacity-50">
+            <div className="rounded-lg border border-white/15 p-4 bg-black/5 backdrop-blur-md  bg-opacity-50">
               <h4 className="text-sm font-medium text-gray-300">Latency</h4>
               <p className="text-2xl font-bold text-white">0</p>
             </div>

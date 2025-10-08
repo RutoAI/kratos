@@ -24,7 +24,7 @@ export default function DailyUsersModal() {
   return (
     <div>
       {/* graph  */}
-      <div className="bg-white/5 w-full rounded-xl p-4 overflow-hidden">
+      <div className="bg-black/5 w-full rounded-xl p-4 overflow-hidden">
         {/* graph header  */}
         <div className="flex justify-between items-center text-white">
           <div className="flex flex-col">
@@ -33,12 +33,10 @@ export default function DailyUsersModal() {
           </div>
 
           {/* tab  */}
-          <div className="flex bg-white/15 rounded-xl gap-2 py-2">
+          <div className="flex bg-black/15 rounded-xl gap-2 py-2">
             <span className="p-2 px-5 rounded-xl text-sm">Daily</span>
             <span className="p-2 px-5 rounded-xl text-sm">Weekly</span>
-            <span className="p-2 px-5 rounded-xl text-white text-sm bg-orange-500 ">
-              Monthly
-            </span>
+            <span className="p-2 px-5 rounded-xl text-white text-sm bg-orange-500 ">Monthly</span>
             <span className="p-2 px-5 rounded-xl text-sm">Yearly</span>
           </div>
         </div>
@@ -52,7 +50,7 @@ export default function DailyUsersModal() {
 
       {/* active grid  */}
       <div className="mt-12  flex gap-8  text-white/80  w-full">
-        <div className=" bg-white/5   p-4 text-white/80 rounded-xl w-1/2">
+        <div className=" bg-black/5   p-4 text-white/80 rounded-xl w-1/2">
           {/* heading  */}
           <h1>Active vs. Total Users</h1>
           <p className="text-sm font-thin">Today</p>
@@ -72,7 +70,7 @@ export default function DailyUsersModal() {
             </div>
           </div>
         </div>
-        <div className=" bg-white/5   p-4 text-white/80 rounded-xl w-1/2">
+        <div className=" bg-black/5   p-4 text-white/80 rounded-xl w-1/2">
           {/* heading  */}
           <h1 className="text-lg mb-6">Regional Activity</h1>
 
@@ -125,7 +123,7 @@ export default function DailyUsersModal() {
         </div>
       </div>
 
-      <div className="mt-12 rounded-xl w-full p-4 bg-white/5 text-white/80">
+      <div className="mt-12 rounded-xl w-full p-4 bg-black/5 text-white/80">
         {/* heading  */}
         <h1 className="font-bold mb-6">Recent Registrations</h1>
 
@@ -135,31 +133,21 @@ export default function DailyUsersModal() {
             <thead className="border-b border-white/10">
               <tr>
                 <th className="px-6 py-3 text-left text-sm font-medium text-white/80">USER</th>
-                <th className="px-6 py-3 text-left text-sm font-medium text-white/80">
-                  EMAIL
-                </th>
+                <th className="px-6 py-3 text-left text-sm font-medium text-white/80">EMAIL</th>
                 <th className="px-6 py-3 text-left text-sm font-medium text-white/80">
                   REGISTRATION DATE
                 </th>
-                <th className="px-6 py-3 text-left text-sm font-medium text-white/80">
-                  SOURCE
-                </th>
-                <th className="px-6 py-3 text-left text-sm font-medium text-white/80">
-                  STATUS
-                </th>
+                <th className="px-6 py-3 text-left text-sm font-medium text-white/80">SOURCE</th>
+                <th className="px-6 py-3 text-left text-sm font-medium text-white/80">STATUS</th>
                 <th className="px-6 py-3 text-left text-sm font-medium text-white/80"></th>
               </tr>
             </thead>
             <tbody className="divide-y divide-white/10">
               {userData.map((user, index) => (
-                <tr key={index} className="hover:bg-white/5">
+                <tr key={index} className="hover:bg-black/5">
                   <td className="px-6 py-4 text-sm text-white">
                     <div className="flex items-center gap-3">
-                      <img
-                        src={user.avatar}
-                        alt={user.name}
-                        className="w-10 h-10 rounded-full"
-                      />
+                      <img src={user.avatar} alt={user.name} className="w-10 h-10 rounded-full" />
                       <span>{user.name}</span>
                     </div>
                   </td>

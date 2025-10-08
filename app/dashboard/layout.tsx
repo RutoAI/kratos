@@ -12,7 +12,7 @@ import {
   ShieldCheckIcon,
   TicketIcon,
   ChevronRightIcon,
-  ChevronDownIcon
+  ChevronDownIcon,
 } from '@heroicons/react/24/outline'
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
@@ -20,7 +20,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   const [openMenus, setOpenMenus] = useState<Record<string, boolean>>({})
 
   const toggleMenu = (menuName: string) => {
-    setOpenMenus(prev => ({ ...prev, [menuName]: !prev[menuName] }))
+    setOpenMenus((prev) => ({ ...prev, [menuName]: !prev[menuName] }))
   }
 
   const navigation = [
@@ -28,7 +28,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
       name: 'Overview',
       href: '/dashboard',
       icon: Squares2X2Icon,
-      current: pathname === '/dashboard'
+      current: pathname === '/dashboard',
     },
     {
       name: 'Users',
@@ -41,12 +41,36 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
         { name: 'Manage Administrative User', href: '/dashboard/admin-users' },
         { name: 'Manage Roles', href: '/dashboard/3' },
         { name: 'Inspect User Activity', href: '/dashboard/44' },
-      ]
+      ],
     },
-    { name: 'Finance', icon: CurrencyDollarIcon, hasSubmenu: true, isOpen: openMenus.finance, submenu: [] },
-    { name: 'Appearance', icon: PaintBrushIcon, hasSubmenu: true, isOpen: openMenus.appearance, submenu: [] },
-    { name: 'Announcement', icon: MegaphoneIcon, hasSubmenu: true, isOpen: openMenus.announcement, submenu: [] },
-    { name: 'Security', icon: ShieldCheckIcon, hasSubmenu: true, isOpen: openMenus.security, submenu: [] },
+    {
+      name: 'Finance',
+      icon: CurrencyDollarIcon,
+      hasSubmenu: true,
+      isOpen: openMenus.finance,
+      submenu: [],
+    },
+    {
+      name: 'Appearance',
+      icon: PaintBrushIcon,
+      hasSubmenu: true,
+      isOpen: openMenus.appearance,
+      submenu: [],
+    },
+    {
+      name: 'Announcement',
+      icon: MegaphoneIcon,
+      hasSubmenu: true,
+      isOpen: openMenus.announcement,
+      submenu: [],
+    },
+    {
+      name: 'Security',
+      icon: ShieldCheckIcon,
+      hasSubmenu: true,
+      isOpen: openMenus.security,
+      submenu: [],
+    },
     { name: 'Ticket', icon: TicketIcon, hasSubmenu: true, isOpen: openMenus.ticket, submenu: [] },
   ]
 
@@ -54,9 +78,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     navigation.forEach((item) => {
       if (item.hasSubmenu && item.submenu) {
-        const hasActiveSubmenu = item.submenu.some(
-          (subItem) => subItem.href === pathname
-        )
+        const hasActiveSubmenu = item.submenu.some((subItem) => subItem.href === pathname)
         if (hasActiveSubmenu) {
           setOpenMenus((prev) => ({ ...prev, [item.name.toLowerCase()]: true }))
         }
@@ -92,7 +114,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
                 <div className="border border-white/15 rounded-lg overflow-hidden">
                   <button
                     onClick={() => toggleMenu(item.name.toLowerCase())}
-                    className="w-full flex items-center justify-between px-4 py-3 text-sm font-medium transition-colors hover:bg-white/12  cursor-pointer hover:bg-opacity-30 text-white"
+                    className="w-full flex items-center justify-between px-4 py-3 text-sm font-medium transition-colors hover:bg-black/12  cursor-pointer hover:bg-opacity-30 text-white"
                   >
                     <div className="flex items-center">
                       <item.icon className="w-5 h-5 mr-3" />
@@ -113,7 +135,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
                           className={`block px-4 py-2 mx-2 text-sm rounded-lg transition-colors ${
                             pathname === subItem.href
                               ? 'text-orange-500'
-                              : 'text-gray-300 hover:text-white hover:bg-white/15 backdrop-blur-sm hover:bg-opacity-30'
+                              : 'text-gray-300 hover:text-white hover:bg-black/15 backdrop-blur-sm hover:bg-opacity-30'
                           }`}
                         >
                           {subItem.name}
@@ -141,7 +163,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
 
         {/* User Profile Section */}
         <div className="px-4 pb-4 flex-shrink-0">
-          <div className="border border-white/15 rounded-lg px-4 py-3">
+          <div className="border border-white/15 rounded-lg px-8 py-4">
             <div className="text-center">
               <div
                 className="w-16 h-16 rounded-full mx-auto mb-3"
@@ -159,8 +181,9 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
                   <span className="text-white">127.0.0.1</span>
                 </div>
               </div>
-              <button className="w-full px-4 py-2 text-orange-500 border border-orange-500 rounded-lg hover:bg-orange-500 hover:bg-opacity-10 transition-colors text-sm font-medium">
-                Logout →
+              <button className=" inline-flex px-6 rounded-6xl gap-2 items-center justify-center px-4 py-2 text-orange-500 border border-white/15 rounded-lg cursor-pointer transition-colors text-sm font-medium">
+                Logout 
+                <span><img src="/svg/logout.svg" alt="" /></span>
               </button>
             </div>
           </div>

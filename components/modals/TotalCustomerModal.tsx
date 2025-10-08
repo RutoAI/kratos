@@ -4,7 +4,7 @@ export default function TotalCustomerModal() {
   return (
     <div>
       {/* graph  */}
-      <div className="bg-white/5 w-full rounded-xl p-4 overflow-hidden">
+      <div className="bg-black/5 w-full rounded-xl p-4 overflow-hidden">
         {/* graph header  */}
         <div className="flex justify-between items-center text-white">
           <div className="flex flex-col">
@@ -13,12 +13,10 @@ export default function TotalCustomerModal() {
           </div>
 
           {/* tab  */}
-          <div className="flex bg-white/15 rounded-xl gap-2 py-2">
+          <div className="flex bg-black/15 rounded-xl gap-2 py-2">
             <span className="p-2 px-5 rounded-xl text-sm">Daily</span>
             <span className="p-2 px-5 rounded-xl text-sm">Weekly</span>
-            <span className="p-2 px-5 rounded-xl text-white text-sm bg-orange-500 ">
-              Monthly
-            </span>
+            <span className="p-2 px-5 rounded-xl text-white text-sm bg-orange-500 ">Monthly</span>
             <span className="p-2 px-5 rounded-xl text-sm">Yearly</span>
           </div>
         </div>
@@ -31,7 +29,7 @@ export default function TotalCustomerModal() {
       </div>
 
       {/* Region  */}
-      <div className="bg-white/5 w-full rounded-xl p-4 mt-12 text-white/80">
+      <div className="bg-black/5 w-full rounded-xl p-4 mt-12 text-white/80">
         {/* Heading  */}
         <div className="flex flex-col">
           <h1>Customers By Region</h1>
@@ -73,7 +71,7 @@ export default function TotalCustomerModal() {
       </div>
 
       {/* Analytics  */}
-      <div className="bg-white/5 w-full rounded-xl p-4 mt-12 text-white/80">
+      <div className="bg-black/5 w-full rounded-xl p-4 mt-12 text-white/80">
         {/* Heading  */}
         <div className="flex flex-col">
           <h1>Browser Analytics</h1>
@@ -82,15 +80,15 @@ export default function TotalCustomerModal() {
 
         {/* analytics cards  */}
         <div className="w-full flex items-center justify-between mt-8">
-          <div className="rounded-lg bg-white/10 p-3 px-16 flex flex-col items-center justify-center">
+          <div className="rounded-lg bg-black/10 p-3 px-16 flex flex-col items-center justify-center">
             <p className="text-white/55 text-sm">Most Used</p>
             <h1>Google Chrome</h1>
           </div>
-          <div className="rounded-lg bg-white/10 p-3 px-16 flex flex-col items-center justify-center">
+          <div className="rounded-lg bg-black/10 p-3 px-16 flex flex-col items-center justify-center">
             <p className="text-white/55 text-sm">Highest Engagement</p>
             <h1>Google Chrome</h1>
           </div>
-          <div className="rounded-lg bg-white/10 p-3 px-16 flex flex-col items-center justify-center">
+          <div className="rounded-lg bg-black/10 p-3 px-16 flex flex-col items-center justify-center">
             <p className="text-white/55 text-sm">Fastes Growing (Wow)</p>
             <h1>Google Chrome</h1>
           </div>
@@ -98,10 +96,10 @@ export default function TotalCustomerModal() {
 
         {/* analytics row  */}
         <div className="mt-10">
-          <div className="w-full  px-8 flex items-center justify-between text-white/80 bg-white/10 rounded-lg p-3">
+          <div className="w-full  px-8 flex items-center justify-between text-white/80 bg-black/10 rounded-lg p-3">
             <div className="flex gap-12 items-center ml-6 flex-1">
               <h1 className="min-w-[150px]">Google Chrome </h1>
-              <div className="flex-1 bg-white/20 rounded-full h-2 max-w-[300px] overflow-hidden">
+              <div className="flex-1 bg-black/20 rounded-full h-2 max-w-[300px] overflow-hidden">
                 <div className="bg-blue-500 h-full rounded-full w-[60%]"></div>
               </div>
             </div>
@@ -114,10 +112,10 @@ export default function TotalCustomerModal() {
         </div>
         {/* analytics row  */}
         <div className="mt-5">
-          <div className="w-full  px-8 flex items-center justify-between text-white/80 bg-white/10 rounded-lg p-3">
+          <div className="w-full  px-8 flex items-center justify-between text-white/80 bg-black/10 rounded-lg p-3">
             <div className="flex gap-12 items-center ml-6 flex-1">
               <h1 className="min-w-[150px]">Google Chrome </h1>
-              <div className="flex-1 bg-white/20 rounded-full h-2 max-w-[300px] overflow-hidden">
+              <div className="flex-1 bg-black/20 rounded-full h-2 max-w-[300px] overflow-hidden">
                 <div className="bg-blue-500 h-full rounded-full w-[60%]"></div>
               </div>
             </div>
@@ -130,10 +128,10 @@ export default function TotalCustomerModal() {
         </div>
         {/* analytics row  */}
         <div className="mt-5">
-          <div className="w-full  px-8 flex items-center justify-between text-white/80 bg-white/10 rounded-lg p-3">
+          <div className="w-full  px-8 flex items-center justify-between text-white/80 bg-black/10 rounded-lg p-3">
             <div className="flex gap-12 items-center ml-6 flex-1">
               <h1 className="min-w-[150px]">Google Chrome </h1>
-              <div className="flex-1 bg-white/20 rounded-full h-2 max-w-[300px] overflow-hidden">
+              <div className="flex-1 bg-black/20 rounded-full h-2 max-w-[300px] overflow-hidden">
                 <div className="bg-blue-500 h-full rounded-full w-[60%]"></div>
               </div>
             </div>
@@ -146,10 +144,10 @@ export default function TotalCustomerModal() {
         </div>
         {/* analytics row  */}
         <div className="mt-5">
-          <div className="w-full  px-8 flex items-center justify-between text-white/80 bg-white/10 rounded-lg p-3">
+          <div className="w-full  px-8 flex items-center justify-between text-white/80 bg-black/10 rounded-lg p-3">
             <div className="flex gap-12 items-center ml-6 flex-1">
               <h1 className="min-w-[150px]">Google Chrome </h1>
-              <div className="flex-1 bg-white/20 rounded-full h-2 max-w-[300px] overflow-hidden">
+              <div className="flex-1 bg-black/20 rounded-full h-2 max-w-[300px] overflow-hidden">
                 <div className="bg-blue-500 h-full rounded-full w-[60%]"></div>
               </div>
             </div>
