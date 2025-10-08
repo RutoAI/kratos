@@ -4,6 +4,7 @@ export interface LoginCredentials {
   email: string
   password: string
   turnstileToken: string
+  sessionUUID: string
 }
 
 export interface LoginResponse {

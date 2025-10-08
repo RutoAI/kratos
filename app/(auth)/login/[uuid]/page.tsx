@@ -1,40 +1,75 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { useRouter } from 'next/navigation'
+import { useRouter, useParams } from 'next/navigation'
 import Turnstile from 'react-turnstile'
+import { authService } from '@/services'
+import ForbiddenAccess from '@/components/ForbiddenAccess'
 
-const Login = () => {
+const LoginWithUUID = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null)
   const [turnstileReady, setTurnstileReady] = useState(false)
   const [turnstileError, setTurnstileError] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [forbidden, setForbidden] = useState(false)
   const router = useRouter()
+  const params = useParams()
+  const sessionUUID = params.uuid as string
 
-  // Turnstile timeout handling
+  // UUID validation and setup
   useEffect(() => {
-    const timeout = setTimeout(() => {
-      if (!turnstileReady) {
-        setTurnstileError(true)
-        console.warn('Turnstile failed to load within 10 seconds')
-      }
-    }, 10000)
-
-    return () => clearTimeout(timeout)
-  }, [turnstileReady])
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-
-    if (!turnstileToken) {
-      console.warn('Please complete the security verification')
+    const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
+    if (!sessionUUID || !uuidRegex.test(sessionUUID)) {
+      setForbidden(true)
       return
     }
 
-    console.log('Login form submitted:', { email, password, turnstileToken })
-    router.push('/dashboard')
+    localStorage.setItem('login_session_uuid', sessionUUID)
+
+    return () => {
+      localStorage.removeItem('login_session_uuid')
+    }
+  }, [sessionUUID, router])
+
+  // Turnstile timeout
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (!turnstileReady) setTurnstileError(true)
+    }, 10000)
+    return () => clearTimeout(timeout)
+  }, [turnstileReady])
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!turnstileToken) return
+
+    setLoading(true)
+    try {
+      await authService.login({
+        email,
+        password,
+        turnstileToken,
+        sessionUUID,
+      })
+      router.push('/dashboard')
+    } catch (error) {
+      console.error('Login failed:', error)
+      router.push('/login')
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const handleTurnstileVerify = (token: string) => {
+    setTurnstileToken(token)
+  }
+
+  // Forbidden access screen
+  if (forbidden) {
+    return <ForbiddenAccess />
   }
 
   return (
@@ -53,7 +88,6 @@ const Login = () => {
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
-            {/* Email */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
               <input
@@ -66,7 +100,6 @@ const Login = () => {
               />
             </div>
 
-            {/* Password */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">Password</label>
               <div className="relative">
@@ -82,7 +115,6 @@ const Login = () => {
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
                   className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-600"
-                  aria-label={showPassword ? 'Hide password' : 'Show password'}
                 >
                   {showPassword ? (
                     <svg
@@ -113,7 +145,6 @@ const Login = () => {
               </div>
             </div>
 
-            {/* Turnstile Component */}
             <div className="mt-4 relative">
               {!turnstileReady && !turnstileError && (
                 <div className="absolute inset-0 flex items-center justify-center bg-gray-50 rounded-xl">
@@ -154,16 +185,9 @@ const Login = () => {
                         d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"
                       />
                     </svg>
-                    <span className="text-xs text-red-600">
-                      Security verification failed to load
-                    </span>
+                    <span className="text-xs text-red-600">Security verification failed</span>
                     <button
-                      onClick={() => {
-                        setTurnstileError(false)
-                        setTurnstileReady(false)
-                        setTurnstileToken(null)
-                        window.location.reload()
-                      }}
+                      onClick={() => router.push('/login')}
                       className="text-xs text-orange-500 hover:underline"
                     >
                       Retry
@@ -176,7 +200,7 @@ const Login = () => {
                 <div className="flex justify-center items-center">
                   <Turnstile
                     sitekey="0x4AAAAAABCSmD-0WEDaerwS"
-                    onVerify={(token) => setTurnstileToken(token)}
+                    onVerify={handleTurnstileVerify}
                     onLoad={() => setTurnstileReady(true)}
                     onError={() => {
                       setTurnstileToken(null)
@@ -189,17 +213,16 @@ const Login = () => {
               )}
             </div>
 
-            {/* Submit */}
             <button
               type="submit"
-              disabled={!turnstileToken}
+              disabled={!turnstileToken || loading}
               className={`w-full ${
-                !turnstileToken
+                !turnstileToken || loading
                   ? 'bg-gray-400 cursor-not-allowed'
                   : 'bg-[#FD5818] hover:bg-[#ff5622ca] cursor-pointer'
-              } text-white py-2.5 rounded-sm font-medium transition-colors text-sm `}
+              } text-white py-2.5 rounded-sm font-medium transition-colors text-sm`}
             >
-              Sign in
+              {loading ? 'Signing in...' : 'Sign in'}
             </button>
           </form>
         </div>
@@ -208,4 +231,4 @@ const Login = () => {
   )
 }
 
-export default Login
+export default LoginWithUUID
