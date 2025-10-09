@@ -10,6 +10,7 @@ const WHITELISTED_DOMAINS = [
   'rutowallet.com',
   'naruto.rutowallet.com',
   '4n4z0.rutowallet.com',
+  'rutoai.org',
 ]
 
 // Get client IP from request
