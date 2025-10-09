@@ -1,4 +1,4 @@
-// Authentication related types
+// Auth types
 
 export interface LoginCredentials {
   email: string
@@ -21,10 +21,6 @@ export interface LoginResponse {
   }
 }
 
-export interface RefreshTokenResponse {
-  accessToken: string
-}
-
 export interface User {
   id: string
   email: string
@@ -34,29 +30,4 @@ export interface User {
   updatedAt: string
   lastLogin?: string
   isActive: boolean
-}
-
-export interface ChangePasswordRequest {
-  currentPassword: string
-  newPassword: string
-}
-
-export interface ResetPasswordRequest {
-  email: string
-  turnstileToken: string
-}
-
-export interface VerifyResetTokenRequest {
-  token: string
-  newPassword: string
-}
-
-export interface AuthUser {
-  id: string
-  email: string
-  role: string
-  permissions: string[]
-  lastLogin?: string
-  currentIp?: string
-  lastLoginIp?: string
 }

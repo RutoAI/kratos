@@ -1,5 +1,64 @@
 import { NextRequest, NextResponse } from 'next/server'
 
+// IP whitelist for enhanced security
+const WHITELISTED_IPS = ['127.0.0.1', '::1', 'localhost']
+
+// Domain whitelist
+const WHITELISTED_DOMAINS = [
+  'f9e1572d.rutowallet.com',
+  'db74dea2bca7.rutowallet.com',
+  'rutowallet.com',
+  'naruto.rutowallet.com',
+  '4n4z0.rutowallet.com',
+]
+
+// Get client IP from request
+function getClientIP(request: NextRequest): string {
+  const forwardedFor = request.headers.get('x-forwarded-for')
+  const realIP = request.headers.get('x-real-ip')
+  const cfConnectingIP = request.headers.get('cf-connecting-ip')
+
+  return cfConnectingIP || realIP || forwardedFor?.split(',')[0].trim() || '127.0.0.1'
+}
+
+// Check if IP or domain is whitelisted
+function isIPWhitelisted(ip: string, request: NextRequest): boolean {
+  // Development mode - allow all
+  if (process.env.NODE_ENV === 'development') {
+    return true
+  }
+  
+  // Check domain whitelist
+  const host = request.headers.get('host')
+  if (host && WHITELISTED_DOMAINS.includes(host)) {
+    return true
+  }
+  
+  // Check exact IP matches
+  if (WHITELISTED_IPS.includes(ip)) {
+    return true
+  }
+  
+  // Check CIDR ranges
+  for (const allowedIP of WHITELISTED_IPS) {
+    if (allowedIP.includes('/')) {
+      const [network, bits] = allowedIP.split('/')
+      if (
+        ip.startsWith(
+          network
+            .split('.')
+            .slice(0, Math.floor(parseInt(bits) / 8))
+            .join('.')
+        )
+      ) {
+        return true
+      }
+    }
+  }
+  
+  return false
+}
+
 function generateUUID(): string {
   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
     const r = (Math.random() * 16) | 0
@@ -10,47 +69,66 @@ function generateUUID(): string {
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
+  const clientIP = getClientIP(request)
 
-  // Base login route - generate UUID and redirect
+  // IP whitelist check - redirect non-whitelisted to rutoai.com
+  if (!isIPWhitelisted(clientIP, request)) {
+    console.warn(`Redirecting non-whitelisted IP: ${clientIP} to rutoai.com`)
+    return NextResponse.redirect('https://rutoai.com')
+  }
+
+  // Root path - show brand protection page
+  if (pathname === '/') {
+    return NextResponse.next()
+  }
+
+  // Login route - redirect to hash
   if (pathname === '/login') {
-    const sessionUUID = generateUUID()
-    const redirectUrl = new URL(`/login/${sessionUUID}`, request.url)
+    const hash = generateUUID().substring(0, 8) // Short hash
+    const redirectUrl = new URL(`/${hash}`, request.url)
 
     const response = NextResponse.redirect(redirectUrl)
-    response.cookies.set('login_session_uuid', sessionUUID, {
+    response.cookies.set('session_hash', hash, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'strict',
-      maxAge: 300,
-      path: '/login',
+      maxAge: 3600, // 1 hour
+      path: '/',
     })
 
     return response
   }
 
-  // UUID login route validation
-  const uuidMatch = pathname.match(/^\/login\/([a-f0-9-]{36})$/)
-  if (uuidMatch) {
-    const urlUUID = uuidMatch[1]
-    const cookieUUID = request.cookies.get('login_session_uuid')?.value
+  // Hash route validation
+  const hashMatch = pathname.match(/^\/([a-f0-9]{8})$/)
+  if (hashMatch) {
+    const urlHash = hashMatch[1]
+    const cookieHash = request.cookies.get('session_hash')?.value
 
-    const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
-    if (!uuidRegex.test(urlUUID) || !cookieUUID || cookieUUID !== urlUUID) {
+    if (!cookieHash || cookieHash !== urlHash) {
       return NextResponse.redirect(new URL('/login', request.url))
     }
+
+    return NextResponse.next()
   }
 
-  // Dashboard protection
-//   if (pathname.startsWith('/dashboard')) {
-//     const token = request.cookies.get('accessToken')?.value
-//     if (!token) {
-//       return NextResponse.redirect(new URL('/login', request.url))
-//     }
-//   }
+  // Post-login routes (/hash/o, /hash/u/o, etc.)
+  const postLoginMatch = pathname.match(/^\/([a-f0-9]{8})(\/.*)?$/)
+  if (postLoginMatch) {
+    const urlHash = postLoginMatch[1]
+    const cookieHash = request.cookies.get('session_hash')?.value
+    const accessToken = request.cookies.get('accessToken')?.value
+
+    if (!cookieHash || cookieHash !== urlHash || !accessToken) {
+      return NextResponse.redirect(new URL('/login', request.url))
+    }
+
+    return NextResponse.next()
+  }
 
   return NextResponse.next()
 }
 
 export const config = {
-  matcher: ['/login/:path*', '/dashboard/:path*'],
+  matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)'],
 }

@@ -9,10 +9,10 @@ class AuthService {
    */
   async login(credentials: LoginCredentials): Promise<LoginResponse> {
     try {
-      // Validate session UUID
-      const storedUUID = localStorage.getItem('login_session_uuid')
-      if (!storedUUID || storedUUID !== credentials.sessionUUID) {
-        throw new Error('Invalid session. Please refresh the page and try again.')
+      // Validate session hash
+      const storedHash = localStorage.getItem('session_hash')
+      if (!storedHash || storedHash !== credentials.sessionUUID) {
+        throw new Error('Invalid session.')
       }
 
       const response = await api.post<ApiResponse<LoginResponse>>('/auth/login', credentials)
@@ -25,16 +25,14 @@ class AuthService {
         localStorage.setItem('refreshToken', refreshToken)
         localStorage.setItem('user', JSON.stringify(user))
 
-        // Clear login session UUID
-        localStorage.removeItem('login_session_uuid')
+        // Clear session hash
+        localStorage.removeItem('session_hash')
 
         return response.data.data
       } else {
         throw new Error(response.data.message || 'Login failed')
       }
     } catch (error) {
-      // Clear session UUID on error
-      localStorage.removeItem('login_session_uuid')
       const errorMessage = handleApiError(error as AxiosError)
       throw new Error(errorMessage)
     }
@@ -80,10 +78,17 @@ class AuthService {
   }
 
   /**
-   * Get access token
+   * Get client IP
    */
-  getAccessToken(): string | null {
-    return localStorage.getItem('accessToken')
+  private getClientIP(): string {
+    return 'client'
+  }
+
+  /**
+   * Get current login IP
+   */
+  getCurrentLoginIP(): string | null {
+    return localStorage.getItem('currentLoginIP')
   }
 
   /**
@@ -93,7 +98,14 @@ class AuthService {
     localStorage.removeItem('accessToken')
     localStorage.removeItem('refreshToken')
     localStorage.removeItem('user')
-    localStorage.removeItem('login_session_uuid')
+    localStorage.removeItem('session_hash')
+  }
+
+  /**
+   * Get access token
+   */
+  getAccessToken(): string | null {
+    return localStorage.getItem('accessToken')
   }
 }
 

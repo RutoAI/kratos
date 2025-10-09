@@ -17,22 +17,22 @@ const LoginWithUUID = () => {
   const [forbidden, setForbidden] = useState(false)
   const router = useRouter()
   const params = useParams()
-  const sessionUUID = params.uuid as string
+  const sessionHash = params.hash as string
 
-  // UUID validation and setup
+  // Hash validation and setup
   useEffect(() => {
-    const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
-    if (!sessionUUID || !uuidRegex.test(sessionUUID)) {
+    const hashRegex = /^[a-f0-9]{8}$/i
+    if (!sessionHash || !hashRegex.test(sessionHash)) {
       setForbidden(true)
       return
     }
 
-    localStorage.setItem('login_session_uuid', sessionUUID)
+    localStorage.setItem('session_hash', sessionHash)
 
     return () => {
-      localStorage.removeItem('login_session_uuid')
+      localStorage.removeItem('session_hash')
     }
-  }, [sessionUUID, router])
+  }, [sessionHash])
 
   // Turnstile timeout
   useEffect(() => {
@@ -52,9 +52,9 @@ const LoginWithUUID = () => {
         email,
         password,
         turnstileToken,
-        sessionUUID,
+        sessionUUID: sessionHash,
       })
-      router.push('/dashboard')
+      router.push(`/${sessionHash}/o`)
     } catch (error) {
       console.error('Login failed:', error)
       router.push('/login')
