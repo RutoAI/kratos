@@ -41,12 +41,12 @@ export function middleware(request: NextRequest) {
   }
 
   // Dashboard protection
-  if (pathname.startsWith('/dashboard')) {
-    const token = request.cookies.get('accessToken')?.value
-    if (!token) {
-      return NextResponse.redirect(new URL('/login', request.url))
-    }
-  }
+//   if (pathname.startsWith('/dashboard')) {
+//     const token = request.cookies.get('accessToken')?.value
+//     if (!token) {
+//       return NextResponse.redirect(new URL('/login', request.url))
+//     }
+//   }
 
   return NextResponse.next()
 }
