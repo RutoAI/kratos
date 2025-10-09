@@ -60,33 +60,34 @@ function isIPWhitelisted(ip: string, request: NextRequest): boolean {
 }
 
 function generateUUID(): string {
-  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-    const r = (Math.random() * 16) | 0
-    const v = c == 'x' ? r : (r & 0x3) | 0x8
-    return v.toString(16)
-  })
+  // Generate 8-character hex hash for session
+  const chars = '0123456789abcdef'
+  let result = ''
+  for (let i = 0; i < 8; i++) {
+    result += chars[Math.floor(Math.random() * 16)]
+  }
+  return result
 }
 
 export function middleware(request: NextRequest) {
-  // COMMENTED OUT FOR DEVELOPMENT - allows direct access to all routes
-  /*
   const { pathname } = request.nextUrl
   const clientIP = getClientIP(request)
 
-  // IP whitelist check - redirect non-whitelisted to rutoai.com
-  if (!isIPWhitelisted(clientIP, request)) {
-    console.warn(`Redirecting non-whitelisted IP: ${clientIP} to rutoai.com`)
-    return NextResponse.redirect('https://rutoai.com')
-  }
+  // For now, all IPs are allowed (as requested)
+  // Future: Only whitelisted IPs will be allowed
+  // if (!isIPWhitelisted(clientIP, request)) {
+  //   console.warn(`Redirecting non-whitelisted IP: ${clientIP} to rutoai.com`)
+  //   return NextResponse.redirect('https://rutoai.com')
+  // }
 
   // Root path - show brand protection page
   if (pathname === '/') {
     return NextResponse.next()
   }
 
-  // Login route - redirect to hash
+  // Login route - redirect to hash (virtual route, no physical file)
   if (pathname === '/login') {
-    const hash = generateUUID().substring(0, 8) // Short hash
+    const hash = generateUUID().substring(0, 8) // Short hash (8 hex chars)
     const redirectUrl = new URL(`/${hash}`, request.url)
 
     const response = NextResponse.redirect(redirectUrl)
@@ -101,7 +102,7 @@ export function middleware(request: NextRequest) {
     return response
   }
 
-  // Hash route validation
+  // Hash route validation - login page
   const hashMatch = pathname.match(/^\/([a-f0-9]{8})$/)
   if (hashMatch) {
     const urlHash = hashMatch[1]
@@ -114,17 +115,23 @@ export function middleware(request: NextRequest) {
     return NextResponse.next()
   }
 
-  // COMMENTED OUT FOR DEVELOPMENT - Dashboard route protection disabled
+  // Post-login dashboard routes (/hash/o, /hash/u/o, etc.)
+  // COMMENTED OUT FOR DEVELOPMENT - allows direct access to dashboard routes
   /*
-  // Post-login routes (/hash/o, /hash/u/o, etc.)
-  const postLoginMatch = pathname.match(/^([a-f0-9]{8})(.*)?$/)
+  const postLoginMatch = pathname.match(/^\/([a-f0-9]{8})(\/.*)?$/)
   if (postLoginMatch) {
     const urlHash = postLoginMatch[1]
     const cookieHash = request.cookies.get('session_hash')?.value
     const accessToken = request.cookies.get('accessToken')?.value
 
-    if (!cookieHash || cookieHash !== urlHash || !accessToken) {
+    // Check if user has valid session and is authenticated
+    if (!cookieHash || cookieHash !== urlHash) {
       return NextResponse.redirect(new URL('/login', request.url))
+    }
+
+    // For dashboard routes, also check for authentication token
+    if (postLoginMatch[2] && !accessToken) {
+      return NextResponse.redirect(new URL(`/${urlHash}`, request.url))
     }
 
     return NextResponse.next()

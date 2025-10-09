@@ -25,6 +25,9 @@ class AuthService {
         localStorage.setItem('refreshToken', refreshToken)
         localStorage.setItem('user', JSON.stringify(user))
 
+        // Set access token cookie for middleware validation
+        document.cookie = `accessToken=${accessToken}; path=/; ${process.env.NODE_ENV === 'production' ? 'secure;' : ''} samesite=strict; max-age=3600`
+
         // Clear session hash
         localStorage.removeItem('session_hash')
 
@@ -50,7 +53,7 @@ class AuthService {
     } finally {
       // Clear all auth data
       this.clearLocalStorage()
-      // Redirect to login
+      // Redirect to login via middleware flow
       window.location.href = '/login'
     }
   }
@@ -99,6 +102,9 @@ class AuthService {
     localStorage.removeItem('refreshToken')
     localStorage.removeItem('user')
     localStorage.removeItem('session_hash')
+
+    // Clear access token cookie
+    document.cookie = 'accessToken=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT'
   }
 
   /**
