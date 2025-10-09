@@ -27,18 +27,18 @@ function isIPWhitelisted(ip: string, request: NextRequest): boolean {
   if (process.env.NODE_ENV === 'development') {
     return true
   }
-  
+
   // Check domain whitelist
   const host = request.headers.get('host')
   if (host && WHITELISTED_DOMAINS.includes(host)) {
     return true
   }
-  
+
   // Check exact IP matches
   if (WHITELISTED_IPS.includes(ip)) {
     return true
   }
-  
+
   // Check CIDR ranges
   for (const allowedIP of WHITELISTED_IPS) {
     if (allowedIP.includes('/')) {
@@ -55,7 +55,7 @@ function isIPWhitelisted(ip: string, request: NextRequest): boolean {
       }
     }
   }
-  
+
   return false
 }
 
@@ -68,6 +68,8 @@ function generateUUID(): string {
 }
 
 export function middleware(request: NextRequest) {
+  // COMMENTED OUT FOR DEVELOPMENT - allows direct access to all routes
+  /*
   const { pathname } = request.nextUrl
   const clientIP = getClientIP(request)
 
@@ -112,8 +114,10 @@ export function middleware(request: NextRequest) {
     return NextResponse.next()
   }
 
+  // COMMENTED OUT FOR DEVELOPMENT - Dashboard route protection disabled
+  /*
   // Post-login routes (/hash/o, /hash/u/o, etc.)
-  const postLoginMatch = pathname.match(/^\/([a-f0-9]{8})(\/.*)?$/)
+  const postLoginMatch = pathname.match(/^([a-f0-9]{8})(.*)?$/)
   if (postLoginMatch) {
     const urlHash = postLoginMatch[1]
     const cookieHash = request.cookies.get('session_hash')?.value
@@ -125,6 +129,7 @@ export function middleware(request: NextRequest) {
 
     return NextResponse.next()
   }
+  */
 
   return NextResponse.next()
 }

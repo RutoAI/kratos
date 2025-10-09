@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { usePathname, useParams } from 'next/navigation'
 import {
   Squares2X2Icon,
   UsersIcon,
@@ -11,13 +11,22 @@ import {
   MegaphoneIcon,
   ShieldCheckIcon,
   TicketIcon,
-  ChevronRightIcon,
   ChevronDownIcon,
 } from '@heroicons/react/24/outline'
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname()
+  const params = useParams()
+  const hash = params.hash as string
   const [openMenus, setOpenMenus] = useState<Record<string, boolean>>({})
+
+  // Check if current route is login (just hash, no additional path)
+  const isLoginRoute = /^\/[a-f0-9]{8}$/.test(pathname)
+
+  // If it's login route, render without dashboard layout
+  if (isLoginRoute) {
+    return <>{children}</>
+  }
 
   const toggleMenu = (menuName: string) => {
     setOpenMenus((prev) => ({ ...prev, [menuName]: !prev[menuName] }))
@@ -26,9 +35,9 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   const navigation = [
     {
       name: 'Overview',
-      href: '/dashboard',
+      href: `/${hash}/o`,
       icon: Squares2X2Icon,
-      current: pathname === '/dashboard',
+      current: pathname === `/${hash}/o`,
     },
     {
       name: 'Users',
@@ -36,11 +45,11 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
       hasSubmenu: true,
       isOpen: openMenus.users,
       submenu: [
-        { name: 'Overview', href: '/dashboard/user-overview' },
-        { name: 'Manage General Users', href: '/dashboard/1' },
-        { name: 'Manage Administrative User', href: '/dashboard/admin-users' },
-        { name: 'Manage Roles', href: '/dashboard/3' },
-        { name: 'Inspect User Activity', href: '/dashboard/44' },
+        { name: 'Overview', href: `/${hash}/u/o` },
+        { name: 'Manage General Users', href: `/${hash}/u/g` },
+        { name: 'Manage Administrative User', href: `/${hash}/u/a` },
+        { name: 'Manage Roles', href: `/${hash}/u/r` },
+        { name: 'Inspect User Activity', href: `/${hash}/u/activity` },
       ],
     },
     {
@@ -146,7 +155,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
                 </div>
               ) : (
                 <Link
-                  href={item.href || '/dashboard'}
+                  href={item.href || `/${hash}/o`}
                   className={`flex items-center px-4 py-3 text-sm font-medium rounded-lg transition-colors border ${
                     item.current
                       ? 'text-orange-500 border-orange-500'
@@ -182,8 +191,10 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
                 </div>
               </div>
               <button className=" inline-flex px-6 rounded-6xl gap-2 items-center justify-center  py-2 text-orange-500 border border-white/15 rounded-lg cursor-pointer transition-colors text-sm font-medium">
-                Logout 
-                <span><img src="/svg/logout.svg" alt="" /></span>
+                Logout
+                <span>
+                  <img src="/svg/logout.svg" alt="" />
+                </span>
               </button>
             </div>
           </div>
