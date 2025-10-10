@@ -1,19 +1,58 @@
 import api, { ApiResponse, handleApiError } from './api'
-import { AxiosError } from 'axios'
+import axios, { AxiosError } from 'axios'
 import {
   LoginCredentials,
+  LoginRequest,
   LoginResponse,
   User,
   Confirm2FARequest,
   Confirm2FAResponse,
+  DeviceHashResponse,
 } from '@/types/auth'
 
 // Essential auth service
 class AuthService {
   /**
+   * Fetch device hash from API
+   */
+  async fetchDeviceHash(): Promise<string> {
+    try {
+      // Check if device hash already exists in localStorage
+      const existingHash = localStorage.getItem('device_hash')
+      if (existingHash) {
+        return existingHash
+      }
+
+      // Fetch new device hash with custom origin header
+      const response = await axios.post<DeviceHashResponse>(
+        'https://api.rutowallet.com/admin/auth/device-hash',
+        {},
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            origin: 'https://test-phrase1.rutoai.org/',
+          },
+        }
+      )
+
+      if (response.data.success && response.data.data.device_hash) {
+        const deviceHash = response.data.data.device_hash
+        // Store device hash in localStorage
+        localStorage.setItem('device_hash', deviceHash)
+        return deviceHash
+      }
+
+      throw new Error('Failed to fetch device hash')
+    } catch (error) {
+      console.error('Device hash fetch error:', error)
+      throw new Error('Unable to generate device hash')
+    }
+  }
+
+  /**
    * User login
    */
-  async login(credentials: LoginCredentials): Promise<LoginResponse> {
+  async login(credentials: LoginRequest): Promise<LoginResponse> {
     try {
       // Validate session hash
       const storedHash = localStorage.getItem('session_hash')
@@ -21,15 +60,31 @@ class AuthService {
         throw new Error('Invalid session.')
       }
 
-      const response = await api.post<ApiResponse<LoginResponse>>('/auth/login', credentials)
+      
+      const apiRequest: LoginCredentials = {
+        email: credentials.email,
+        password: credentials.password,
+        turnstile_token: credentials.turnstile_token,
+      }
+
+      const response = await api.post<ApiResponse<any>>('/auth/login', apiRequest)
 
       if (response.data.success) {
-        const data = response.data.data
+        // Handle nested data structure (data.data or data.data.data)
+        let data = response.data.data
+
+        // If data has a nested 'data' property, unwrap it
+        if (data && data.data) {
+          data = data.data
+        }
 
         // Check if 2FA setup is required
         if (data.qr_code_base64 && data.identifier) {
-          // Store identifier for 2FA verification
+          // Store identifier and admin_id for 2FA verification
           localStorage.setItem('2fa_identifier', data.identifier)
+          if (data.admin_id) {
+            localStorage.setItem('2fa_admin_id', data.admin_id)
+          }
           return data // Return 2FA setup data
         }
 
@@ -154,6 +209,7 @@ class AuthService {
     localStorage.removeItem('session_hash')
     localStorage.removeItem('2fa_identifier')
     localStorage.removeItem('2fa_qr_code')
+    localStorage.removeItem('2fa_admin_id')
 
     // Clear access token cookie
     document.cookie = 'accessToken=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT'

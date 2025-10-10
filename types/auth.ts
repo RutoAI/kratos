@@ -1,9 +1,14 @@
 // Auth types
 
+// API request for login (only what backend needs)
 export interface LoginCredentials {
   email: string
   password: string
-  turnstileToken: string
+  turnstile_token: string
+}
+
+// Internal client-side login data (includes session validation)
+export interface LoginRequest extends LoginCredentials {
   sessionUUID: string
 }
 
@@ -29,6 +34,7 @@ export interface Confirm2FARequest {
   identifier: string
   code: string
   email_code: string
+  admin_id?: string
 }
 
 export interface Confirm2FAResponse {
@@ -54,4 +60,15 @@ export interface User {
   updatedAt: string
   lastLogin?: string
   isActive: boolean
+}
+
+// Device hash response
+export interface DeviceHashResponse {
+  success: boolean
+  message: string
+  status_code: number
+  data: {
+    device_hash: string
+    ip_address: string
+  }
 }

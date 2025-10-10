@@ -39,15 +39,18 @@ const TwoFactorVerify = () => {
 
     setLoading(true)
     try {
+      const adminId = localStorage.getItem('2fa_admin_id')
       await authService.confirm2FA({
         identifier,
         code,
         email_code: emailCode,
+        ...(adminId && { admin_id: adminId }),
       })
 
       // Clear 2FA data
       localStorage.removeItem('2fa_qr_code')
       localStorage.removeItem('2fa_identifier')
+      localStorage.removeItem('2fa_admin_id')
 
       // Redirect to dashboard
       router.push(`/${sessionHash}/o`)

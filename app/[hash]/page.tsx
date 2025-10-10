@@ -15,6 +15,7 @@ const LoginWithUUID = () => {
   const [turnstileError, setTurnstileError] = useState(false)
   const [loading, setLoading] = useState(false)
   const [forbidden, setForbidden] = useState(false)
+  const [deviceHashReady, setDeviceHashReady] = useState(false)
   const router = useRouter()
   const params = useParams()
   const sessionHash = params.hash as string
@@ -34,6 +35,21 @@ const LoginWithUUID = () => {
     }
   }, [sessionHash])
 
+  // Fetch device hash on mount
+  useEffect(() => {
+    const initDeviceHash = async () => {
+      try {
+        await authService.fetchDeviceHash()
+        setDeviceHashReady(true)
+      } catch (error) {
+        console.error('Failed to fetch device hash:', error)
+        setDeviceHashReady(false)
+      }
+    }
+
+    initDeviceHash()
+  }, [])
+
   // Turnstile timeout
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -51,7 +67,7 @@ const LoginWithUUID = () => {
       const response = await authService.login({
         email,
         password,
-        turnstileToken,
+        turnstile_token: turnstileToken,
         sessionUUID: sessionHash,
       })
 
@@ -224,14 +240,14 @@ const LoginWithUUID = () => {
 
             <button
               type="submit"
-              disabled={!turnstileToken || loading}
+              disabled={!turnstileToken || loading || !deviceHashReady}
               className={`w-full ${
-                !turnstileToken || loading
+                !turnstileToken || loading || !deviceHashReady
                   ? 'bg-gray-400 cursor-not-allowed'
                   : 'bg-[#FD5818] hover:bg-[#ff5622ca] cursor-pointer'
               } text-white py-2.5 rounded-sm font-medium transition-colors text-sm`}
             >
-              {loading ? 'Signing in...' : 'Sign in'}
+              {loading ? 'Signing in...' : !deviceHashReady ? 'Initializing...' : 'Sign in'}
             </button>
           </form>
         </div>
