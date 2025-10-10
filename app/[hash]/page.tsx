@@ -48,13 +48,22 @@ const LoginWithUUID = () => {
 
     setLoading(true)
     try {
-      await authService.login({
+      const response = await authService.login({
         email,
         password,
         turnstileToken,
         sessionUUID: sessionHash,
       })
-      router.push(`/${sessionHash}/o`)
+
+      // Check if 2FA setup is required
+      if (response.qr_code_base64 && response.identifier) {
+        // Store QR code for 2FA setup page
+        localStorage.setItem('2fa_qr_code', response.qr_code_base64)
+        router.push(`/${sessionHash}/2fa-setup`)
+      } else {
+        // Normal login - redirect to dashboard
+        router.push(`/${sessionHash}/o`)
+      }
     } catch (error) {
       console.error('Login failed:', error)
       router.push('/login')

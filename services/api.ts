@@ -1,7 +1,7 @@
 import axios, { AxiosInstance, AxiosResponse, AxiosError, InternalAxiosRequestConfig } from 'axios'
 
 // Base API configuration
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'https://api.rutowallet.com'
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'https://api.rutowallet.com/admin'
 
 // Create axios instance
 const api: AxiosInstance = axios.create({

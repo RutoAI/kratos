@@ -116,6 +116,19 @@ export function middleware(request: NextRequest) {
     return NextResponse.next()
   }
 
+  // 2FA routes - allow access with session hash only (no auth token required)
+  const twoFAMatch = pathname.match(/^\/([a-f0-9]{8})\/(2fa-setup|2fa-verify)$/)
+  if (twoFAMatch) {
+    const urlHash = twoFAMatch[1]
+    const cookieHash = request.cookies.get('session_hash')?.value
+
+    if (!cookieHash || cookieHash !== urlHash) {
+      return NextResponse.redirect(new URL('/login', request.url))
+    }
+
+    return NextResponse.next()
+  }
+
   // Post-login dashboard routes (/hash/o, /hash/u/o, etc.)
   // COMMENTED OUT FOR DEVELOPMENT - allows direct access to dashboard routes
   /*

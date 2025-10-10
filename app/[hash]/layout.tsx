@@ -20,11 +20,11 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   const hash = params.hash as string
   const [openMenus, setOpenMenus] = useState<Record<string, boolean>>({})
 
-  // Check if current route is login (just hash, no additional path)
-  const isLoginRoute = /^\/[a-f0-9]{8}$/.test(pathname)
+  // Check if current route is login or 2FA setup/verify (standalone routes)
+  const isStandaloneRoute = /^\/[a-f0-9]{8}(\/2fa-setup|\/2fa-verify)?$/.test(pathname)
 
-  // If it's login route, render without dashboard layout
-  if (isLoginRoute) {
+  // If it's a standalone route, render without dashboard layout
+  if (isStandaloneRoute) {
     return <>{children}</>
   }
 
